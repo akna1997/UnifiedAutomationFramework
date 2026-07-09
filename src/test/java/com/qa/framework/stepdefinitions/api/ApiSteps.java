@@ -1,5 +1,6 @@
 package com.qa.framework.stepdefinitions.api;
 
+import com.qa.framework.utils.ConfigReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -15,15 +16,14 @@ public class ApiSteps {
 
     @Given("user mengatur endpoint API pencarian")
     public void userMengaturEndpointApi() {
-        // BASEURI akan ditaruh di config.properties
-        RestAssured.baseURI = "https://dummyjson.com";
+        RestAssured.baseURI = ConfigReader.getProperty("api.base.url");
         endpoint = "/products/search";
     }
 
     @When("user mengirim GET request dengan kata kunci {string}")
     public void userMengirimGetRequest(String keyword) {
         response = given()
-                .queryParam("q", keyword) // Menambahkan ?q=housing... di ujung URL
+                .queryParam("q", keyword)
                 .header("Accept", "application/json")
                 .when()
                 .get(endpoint);

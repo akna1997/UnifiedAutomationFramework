@@ -1,5 +1,6 @@
 package com.qa.framework.stepdefinitions.api;
 
+import com.qa.framework.utils.ConfigReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -16,7 +17,7 @@ public class ApiAddProductSteps
 
     @Given("user mengatur base URL untuk tambah produk")
     public void userMengaturBaseUrlTambahProduk() {
-        RestAssured.baseURI = "https://dummyjson.com";
+        RestAssured.baseURI = RestAssured.baseURI = ConfigReader.getProperty("api.base.url");
         endpoint = "/products/add";
     }
 
