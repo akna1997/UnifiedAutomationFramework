@@ -1,0 +1,37 @@
+name: Cross-Platform Automation CI
+
+on:
+  push:
+    branches: [ "main", "master" ] # Berjalan otomatis saat kamu push ke branch main/master
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  automation-test:
+    runs-on: ubuntu-latest # Menggunakan server Linux gratis dari GitHub (Chrome sudah pre-installed)
+
+    steps:
+      - name: 1. Ambil Kode Terbaru dari GitHub
+        uses: actions/checkout@v4
+
+      - name: 2. Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven # Mempercepat download library di eksekusi berikutnya
+
+      - name: 3. Jalankan Pengujian Web (Headless Mode)
+        run: |
+          mvn clean test -Dplatform="web" -Dcucumber.filter.tags="@web" -Dheadless="true"
+        continue-on-error: true # Tetap lanjut ke step berikutnya meskipun ada test yang gagal
+
+      - name: 4. Generate Allure Static Report
+        run: |
+          mvn allure:report
+
+      - name: 5. Upload Laporan ke GitHub Pages (Biar Bisa Diakses Online)
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site/allure-maven-plugin # Folder laporan statis kita
