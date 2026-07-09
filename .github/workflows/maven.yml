@@ -23,7 +23,7 @@ jobs:
 
       - name: 3. Jalankan Pengujian Web (Headless Mode)
         run: |
-          mvn clean test -Dplatform="web" -Dcucumber.filter.tags="@web" -Dheadless="true"
+          mvn clean test -Dplatform="Web" -Dcucumber.filter.tags="@Web" -Dheadless="true"
         continue-on-error: true # Tetap lanjut ke step berikutnya meskipun ada test yang gagal
 
       - name: 4. Generate Allure Static Report
