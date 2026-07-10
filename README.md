@@ -12,28 +12,28 @@ Selamat datang di **Unified Automation Framework**! Ini adalah framework otomati
 Framework ini dirakit menggunakan perpaduan teknologi berstandar industri modern untuk memastikan stabilitas, skalabilitas, dan kemudahan pemeliharaan:
 
 * **Bahasa Pemrograman:** Java 17
-* **Manajer Dependensi & Build Tool:** Apache Maven
+* **Depedency Manager & Build Tool:** Apache Maven
 * **Web Automation Engine:** Selenium WebDriver
 * **Mobile Automation Engine:** Appium
 * **API Automation:** Rest-Assured
-* **Pendekatan Pengujian (BDD):** Cucumber (Gherkin Syntax)
-* **Pelaporan Visual (Dashboard):** Allure Report
+* **Testing Approach (BDD):** Cucumber (Gherkin Syntax)
+* **Report Visual (Dashboard):** Allure Report
 * **Continuous Integration (CI/CD):** GitHub Actions
-* **Cloud Hosting Laporan:** GitHub Pages
+* **Cloud Hosting Report:** GitHub Pages
 
 ---
 
 ## 🏗️ DAFTAR ISI
-1. [Prasyarat Awal (Instalasi Software dari Nol)](#-langkah-1-persiapan-awal-untuk-laptop-baru)
+1. [Prasyarat Awal (Instalasi Software)](#-langkah-1-persiapan-awal)
 2. [Setup Environment Variables](#-langkah-2-pengaturan-environment-variables)
-4. [Tips Mobile: Cara Mencari appPackage dan appActivity](#-langkah-4-tips-mobile-cara-mencari-apppackage-dan-appactivity)
-5. [Clone & Membuka Proyek di IntelliJ](#-langkah-5-mengunduh-dan-membuka-proyek)
-6. [Cara Menjalankan Pengujian (Local)](#-langkah-7-cara-menjalankan-pengujian-lokal)
-7. [Melihat Laporan Hasil Tes (Allure Report)](#-langkah-8-melihat-laporan-hasil-tes-allure-report)
+3. [Tips Mobile: Cara Mencari appPackage dan appActivity](#-langkah-3-tips-mobile-cara-mencari-apppackage-dan-appactivity)
+4. [Clone & Membuka Project di IntelliJ](#-langkah-4-mengunduh-dan-membuka-project)
+5. [Cara Menjalankan Pengujian (Local)](#-langkah-5-local-run)
+6. [Melihat Laporan Hasil Tes (Allure Report)](#-langkah-6-melihat-laporan-hasil-tes)
 
 ---
 
-## 🛠️ LANGKAH 1: PERSIAPAN AWAL (UNTUK LAPTOP BARU)
+## 🛠️ LANGKAH 1: PERSIAPAN AWAL
 
 Sebelum menjalankan framework, kamu wajib menginstal beberapa perangkat lunak berikut sesuai dengan sistem operasi laptopmu (Windows atau Mac).
 
@@ -87,7 +87,7 @@ Langkah ini wajib agar laptopmu mengenali perintah `java` dan `mvn` dari termina
 3. Simpan dengan menekan Ctrl+O, lalu Enter, kemudian keluar dengan Ctrl+X.
 4. Jalankan perintah: source ~/.zshrc untuk mengaktifkan perubahan.
 
-### 📱 LANGKAH 3: TIPS MOBILE: CARA MENCARI APPPACKAGE DAN APPACTIVITY
+## 📱 LANGKAH 3: TIPS MOBILE: CARA MENCARI APPPACKAGE DAN APPACTIVITY
 Saat menguji aplikasi Android via Appium, kamu wajib mendaftarkan identitas aplikasi berupa appPackage (nama ID aplikasi) dan appActivity (halaman gerbang awal aplikasi dibuka). Berikut adalah cara mencarinya:
 
 1. Menggunakan Perintah Terminal (Paling Sering Digunakan QA Engineer)
@@ -113,6 +113,16 @@ Saat menguji aplikasi Android via Appium, kamu wajib mendaftarkan identitas apli
     
     appActivity Anda adalah teks setelah tanda garis miring (/), yaitu: com.tokopedia.home.HomeActivity
 
+   *PS : kita juga butuh DeviceName, PlatformName, dan automation name, dan akan jadi seperti ini (berguna untuk appium inspector) :
+
+   ```
+   {
+      "appium:deviceName": "Pixel 5",
+      "appium:automationName": "UiAutomator2",
+      "platformName": "Android",
+      "appium:appPackage": "com.tokopedia.tkpd",
+      "appium:appActivity": "com.tokopedia.home.HomeActivity"
+   }
 
 2. Menggunakan Aplikasi Pihak Ketiga (Tanpa Ketik Kode)
 
@@ -126,7 +136,7 @@ Saat menguji aplikasi Android via Appium, kamu wajib mendaftarkan identitas apli
 
     Aplikasi akan langsung memunculkan informasi nama Package dan Current Activity yang sedang aktif di layar secara instan. Salin nilai tersebut ke dalam kode DriverManager.java kamu.
 
-### 📥 LANGKAH 4: MENGUNDUH DAN MEMBUKA PROJECT
+## 📥 LANGKAH 4: MENGUNDUH DAN MEMBUKA PROJECT
 1. Buka Terminal (Mac) atau Command Prompt/Git Bash (Windows).
 
 2. Masuk ke folder tempat kamu ingin menyimpan proyek, lalu klon repositori dari GitHub:
@@ -139,7 +149,7 @@ Saat menguji aplikasi Android via Appium, kamu wajib mendaftarkan identitas apli
 
 5. Saat proyek terbuka, IntelliJ akan otomatis mendeteksi file pom.xml dan mengunduh semua library yang dibutuhkan di latar belakang. Tunggu hingga proses indexing di pojok kanan bawah selesai.
 
-### 🚀 LANGKAH 5: LOCAL RUN
+## 🚀 LANGKAH 5: LOCAL RUN
 1. Mode Normal (Membuka Jendela Browser Chrome secara Visual)
    ```Bash
    mvn clean test -Dplatform="Web" -Dcucumber.filter.tags="@Web" -Dheadless="false"
@@ -150,13 +160,19 @@ Saat menguji aplikasi Android via Appium, kamu wajib mendaftarkan identitas apli
    mvn clean test -Dplatform="Web" -Dcucumber.filter.tags="@Web" -Dheadless="true"
 💡 Catatan Parameter:
 
--Dplatform: Menentukan platform pengujian (web, mobile, atau api).
+-Dplatform: Menentukan platform pengujian (Web, Mobile, atau Api).
 
 -Dcucumber.filter.tags: Menjalankan skenario spesifik yang memiliki tag tersebut di file .feature.
 
 -Dheadless: Mengatur apakah browser ingin ditampilkan (false) atau disembunyikan (true).
 
-### 📊 LANGKAH 6: MELIHAT LAPORAN HASIL TES (ALLURE REPORT)
+ Contoh untuk platform lain :
+
+      mvn clean test -Dplatform="Android" -Dcucumber.filter.tags="@Mobile"
+      mvn clean test -Dplatform="iOS" -Dcucumber.filter.tags="@Mobile"
+      mvn clean test -Dcucumber.filter.tags="@Api"
+
+## 📊 LANGKAH 6: MELIHAT LAPORAN HASIL TES
 
 Setiap kali pengujian selesai dijalankan, framework otomatis menangkap screenshot jika ada langkah yang gagal (failed). Kamu bisa melihat laporannya dengan dua cara:
 
