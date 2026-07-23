@@ -5,6 +5,8 @@ on:
     branches: [ "main", "master" ] # Berjalan otomatis saat kamu push ke branch main/master
   pull_request:
     branches: [ "main", "master" ]
+  repository_dispatch:
+    types: [trigger-from-jenkins]
 
 jobs:
   automation-test:
