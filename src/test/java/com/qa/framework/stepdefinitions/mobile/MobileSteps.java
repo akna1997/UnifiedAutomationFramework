@@ -1,7 +1,6 @@
 package com.qa.framework.stepdefinitions.mobile;
 
 import com.qa.framework.pages.mobile.TokopediaHomePageMobile;
-import com.qa.framework.utils.ConfigReader;
 import com.qa.framework.utils.DriverManager;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,8 +13,7 @@ public class MobileSteps {
 
     @Given("Mobile pengguna membuka halaman utama {string}")
     public void Mobile_pengguna_membuka_halaman_utama_Mobile(String namaToko) {
-        String urlTujuan = ConfigReader.getProperty("web.url");
-        DriverManager.getDriver().get(urlTujuan);
+        DriverManager.getDriver();
     }
 
     @When("Mobile pengguna mencari barang {string}")

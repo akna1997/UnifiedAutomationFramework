@@ -17,7 +17,7 @@ public class ApiAddProductSteps
 
     @Given("user mengatur base URL untuk tambah produk")
     public void userMengaturBaseUrlTambahProduk() {
-        RestAssured.baseURI = RestAssured.baseURI = ConfigReader.getProperty("api.base.url");
+        RestAssured.baseURI = ConfigReader.getProperty("api.base.url");
         endpoint = "/products/add";
     }
 
@@ -46,7 +46,7 @@ public class ApiAddProductSteps
     public void responApiHarusMengembalikanId() {
         response.then().body("id", notNullValue());
 
-        System.out.println("✅ Produk berhasil ditambahkan! Berikut respon server:");
+        System.out.println("Produk berhasil ditambahkan! Berikut respon server:");
         System.out.println(response.asPrettyString());
     }
 }

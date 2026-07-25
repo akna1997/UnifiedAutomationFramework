@@ -23,7 +23,7 @@ Framework ini dirakit menggunakan perpaduan teknologi berstandar industri modern
 
 ---
 
-## 🏗️ DAFTAR ISI
+## DAFTAR ISI
 1. [Prasyarat Awal (Instalasi Software)](#-langkah-1-persiapan-awal)
 2. [Setup Environment Variables](#-langkah-2-pengaturan-environment-variables)
 3. [Tips Mobile: Cara Mencari appPackage dan appActivity](#-langkah-3-tips-mobile-cara-mencari-apppackage-dan-appactivity)
@@ -33,7 +33,7 @@ Framework ini dirakit menggunakan perpaduan teknologi berstandar industri modern
 
 ---
 
-## 🛠️ LANGKAH 1: PERSIAPAN AWAL
+## LANGKAH 1: PERSIAPAN AWAL
 
 Sebelum menjalankan framework, kamu wajib menginstal beberapa perangkat lunak berikut sesuai dengan sistem operasi laptopmu (Windows atau Mac).
 
@@ -54,15 +54,29 @@ Framework ini menggunakan Java versi 17.
     2. Ekstrak file zip tersebut ke folder aman, misalnya di `C:\Program Files\maven\`.
 
 ### 4. Instal IntelliJ IDEA (Aplikasi Editor Kode)
-* Unduh **IntelliJ IDEA Community Edition** (Gratis) dari [JetBrains](https://www.jetbrains.com/idea/download/). Jalankan installer dan ikuti petunjuknya sampai selesai.
+* Unduh **IntelliJ IDEA Community Edition** (Gratis) dari [JetBrains](https://www.jetbrains.com/idea/download/). Jalankan installer dan ikuti petunjuknya sampai selesai. / Visual Studio Code
 
+### 4. [Required untuk mobile testing] Instal Appium, NPM, Node, adb, appium inspector
+1. install node js (Linux, Mac / Windows bisa dari [Node JS](https://nodejs.org/))
+    ```Bash
+    sudo dnf install nodejs -y
+2. install appium
+    ```Bash
+    sudo npm install -g appium
+3. Instal Driver UIAutomator2
+    ```Bash
+    appium driver install uiautomator2
+4. Instal adb
+    ```Bash
+    Linux : sudo dnf install android-tools -y
+    Mac : brew install android-platform-tools
 ---
 
-## ⚙️ LANGKAH 2: PENGATURAN ENVIRONMENT VARIABLES
+## LANGKAH 2: PENGATURAN ENVIRONMENT VARIABLES
 
 Langkah ini wajib agar laptopmu mengenali perintah `java` dan `mvn` dari terminal mana pun.
 
-### 💻 Untuk Pengguna Windows:
+### Untuk Pengguna Windows:
 1. Cari **"Environment Variables"** di menu pencarian Windows Start.
 2. Di jendela *System Properties*, klik tombol **Environment Variables...**.
 3. Di bawah **System Variables**, klik **New...** untuk membuat variabel baru:
@@ -77,7 +91,7 @@ Langkah ini wajib agar laptopmu mengenali perintah `java` dan `mvn` dari termina
     * `%MAVEN_HOME%\bin`
 7. Klik **OK** di semua jendela untuk menyimpan.
 
-### 🍏 Untuk Pengguna Mac:
+### Untuk Pengguna Mac:
 1. Buka Terminal, buka file profil konfigurasi (biasanya menggunakan Zsh): `nano ~/.zshrc`
 2. Tambahkan baris-baris berikut di paling bawah file:
    ```bash
@@ -87,42 +101,59 @@ Langkah ini wajib agar laptopmu mengenali perintah `java` dan `mvn` dari termina
 3. Simpan dengan menekan Ctrl+O, lalu Enter, kemudian keluar dengan Ctrl+X.
 4. Jalankan perintah: source ~/.zshrc untuk mengaktifkan perubahan.
 
-## 📱 LANGKAH 3: TIPS MOBILE: CARA MENCARI APPPACKAGE DAN APPACTIVITY
+### Untuk Pengguna Linux:
+1. Buka file bashrc di terminal
+   ```bash
+   nano ~/.bashrc
+2. copy-paste (atau ketik) baris berikut ini di bagian terbawah
+   ```bash
+   # Konfigurasi Android SDK
+    export ANDROID_HOME=$HOME/Android/Sdk
+    export ANDROID_SDK_ROOT=$ANDROID_HOME
+
+    # Memasukkan folder Android ke dalam PATH
+    export PATH=$PATH:$ANDROID_HOME/emulator
+    export PATH=$PATH:$ANDROID_HOME/platform-tools
+    export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+3. Tekan Ctrl + O (huruf O) lalu tekan Enter untuk menyimpan.
+4. Tekan Ctrl + X untuk keluar dari editor.
+2. Refresh Terminal
+   ```bash
+   source ~/.bashrc
+6. Maksure ANDROID_HOME sudah ada valuenya
+   ```bash
+   echo $ANDROID_HOME
+## LANGKAH 3: TIPS MOBILE: CARA MENCARI APPPACKAGE DAN APPACTIVITY
 Saat menguji aplikasi Android via Appium, kamu wajib mendaftarkan identitas aplikasi berupa appPackage (nama ID aplikasi) dan appActivity (halaman gerbang awal aplikasi dibuka). Berikut adalah cara mencarinya:
 
-1. Menggunakan Perintah Terminal (Paling Sering Digunakan QA Engineer)
+1. Menggunakan Perintah Terminal (Paling Sering Digunakan)
     Hubungkan HP Android asli kamu ke laptop menggunakan kabel USB (Pastikan USB Debugging di menu Developer Options HP sudah aktif).
     
     Buka aplikasi yang ingin kamu uji di HP kamu (Misal: Aplikasi Tokopedia atau Shopee), dan biarkan aplikasi tersebut tetap terbuka di layar depan.
     
-    Buka Terminal / Command Prompt di laptop, lalu jalankan perintah sakti ini:
-    
-    Untuk Pengguna Mac / Linux:
+    Buka Terminal / Command Prompt di laptop, lalu jalankan salah 1 dari 3 perintah ini:
+    ```bash
+    adb shell dumpsys activity activities | grep mResumedActivity
+    adb shell dumpsys activity activities | findstr mResumedActivity
+    adb shell dumpsys window | grep -E 'mCurrentFocus'
+Hasil yang Muncul: Terminal akan memunculkan sebaris teks panjang. Perhatikan bagian yang menyerupai pola berikut (hanya contoh):
 
-        adb shell dumpsys activity activities | grep mResumedActivity
- 
-    Untuk Pengguna Windows:
+    mResumedActivity: ActivityRecord{... u0 com.tokopedia.tkpd/com.tokopedia.homeHomeActivity t12}
 
-        adb shell dumpsys activity activities | findstr mResumedActivity
+appPackage Anda adalah teks sebelum tanda garis miring (/), yaitu: com.tokopedia.tkpd
 
-    Hasil yang Muncul: Terminal akan memunculkan sebaris teks panjang. Perhatikan bagian yang menyerupai pola berikut (hanya contoh):
+appActivity Anda adalah teks setelah tanda garis miring (/), yaitu: com.tokopedia.home.HomeActivity
 
-        mResumedActivity: ActivityRecord{... u0 com.tokopedia.tkpd/com.tokopedia.home.HomeActivity t12}
+*PS : kita juga butuh DeviceName, PlatformName, dan automation name, dan akan jadi seperti ini (berguna untuk appium inspector) :
 
-    appPackage Anda adalah teks sebelum tanda garis miring (/), yaitu: com.tokopedia.tkpd
-    
-    appActivity Anda adalah teks setelah tanda garis miring (/), yaitu: com.tokopedia.home.HomeActivity
-
-   *PS : kita juga butuh DeviceName, PlatformName, dan automation name, dan akan jadi seperti ini (berguna untuk appium inspector) :
-
-   ```
-   {
-      "appium:deviceName": "Pixel 5",
-      "appium:automationName": "UiAutomator2",
-      "platformName": "Android",
-      "appium:appPackage": "com.tokopedia.tkpd",
-      "appium:appActivity": "com.tokopedia.home.HomeActivity"
-   }
+```
+{
+    "appium:deviceName": "Pixel 5",
+    "appium:automationName": "UiAutomator2",
+    "platformName": "Android",
+    "appium:appPackage": "com.tokopedia.tkpd",
+    "appium:appActivity": "com.tokopedia.home.HomeActivity"
+}
 
 2. Menggunakan Aplikasi Pihak Ketiga (Tanpa Ketik Kode)
 
@@ -135,8 +166,10 @@ Saat menguji aplikasi Android via Appium, kamu wajib mendaftarkan identitas apli
     Buka aplikasi target (misal Tokopedia), lalu buka aplikasi Current Activity tersebut melalui panel notifikasi atau pop-up floating window.
 
     Aplikasi akan langsung memunculkan informasi nama Package dan Current Activity yang sedang aktif di layar secara instan. Salin nilai tersebut ke dalam kode DriverManager.java kamu.
-
-## 📥 LANGKAH 4: MENGUNDUH DAN MEMBUKA PROJECT
+3. Tambahan jika ingin menggunakan real device ambil udid dari device dan taruh di opetion driver manager setup dan file confignya, exec command ini lalu copas udid nya
+    ```bash
+   adb devices
+## LANGKAH 4: MENGUNDUH DAN MEMBUKA PROJECT
 1. Buka Terminal (Mac) atau Command Prompt/Git Bash (Windows).
 
 2. Masuk ke folder tempat kamu ingin menyimpan proyek, lalu klon repositori dari GitHub:
@@ -149,7 +182,7 @@ Saat menguji aplikasi Android via Appium, kamu wajib mendaftarkan identitas apli
 
 5. Saat proyek terbuka, IntelliJ akan otomatis mendeteksi file pom.xml dan mengunduh semua library yang dibutuhkan di latar belakang. Tunggu hingga proses indexing di pojok kanan bawah selesai.
 
-## 🚀 LANGKAH 5: LOCAL RUN
+## LANGKAH 5: LOCAL RUN
 1. Mode Normal (Membuka Jendela Browser Chrome secara Visual)
    ```Bash
    mvn clean test -Dplatform="Web" -Dcucumber.filter.tags="@Web" -Dheadless="false"
@@ -158,7 +191,7 @@ Saat menguji aplikasi Android via Appium, kamu wajib mendaftarkan identitas apli
 
    ```Bash
    mvn clean test -Dplatform="Web" -Dcucumber.filter.tags="@Web" -Dheadless="true"
-💡 Catatan Parameter:
+Catatan Parameter:
 
 -Dplatform: Menentukan platform pengujian (Web, Mobile, atau Api).
 
@@ -172,7 +205,7 @@ Saat menguji aplikasi Android via Appium, kamu wajib mendaftarkan identitas apli
       mvn clean test -Dplatform="iOS" -Dcucumber.filter.tags="@Mobile"
       mvn clean test -Dcucumber.filter.tags="@Api"
 
-## 📊 LANGKAH 6: MELIHAT LAPORAN HASIL TES
+## LANGKAH 6: MELIHAT LAPORAN HASIL TES
 
 Setiap kali pengujian selesai dijalankan, framework otomatis menangkap screenshot jika ada langkah yang gagal (failed). Kamu bisa melihat laporannya dengan dua cara:
 

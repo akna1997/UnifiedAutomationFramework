@@ -37,7 +37,7 @@ public class DriverManager {
                         chromeOptions.addArguments("--disable-blink-features=AutomationControlled");
                         chromeOptions.addArguments("--incognito");
                         chromeOptions.addArguments("--window-size=1920,1080");
-                        System.out.println("🌐 Menjalankan Chrome dalam mode HEADLESS...");
+                        System.out.println("Menjalankan Chrome dalam mode HEADLESS...");
                     }
                     chromeOptions.addArguments("--remote-allow-origins=*");
                     chromeOptions.addArguments("--start-maximized"); // Buka layar penuh
@@ -66,14 +66,15 @@ public class DriverManager {
                             options.setUdid(udid);
                         }
 
-                        options.setDeviceName(ConfigReader.getProperty("android.device.name"));
+                        // options.setDeviceName(ConfigReader.getProperty("android.device.name"));
+                        // options.setApp(System.getProperty("user.dir") + "/" + ConfigReader.getProperty("android.app.path"));
                         options.setAutomationName(ConfigReader.getProperty("android.automation.name"));
-                        options.setApp(System.getProperty("user.dir") + "/" + ConfigReader.getProperty("android.app.path"));
                         options.setAutoGrantPermissions(true);
                         options.setNewCommandTimeout(Duration.ofSeconds(60));
                         options.setNoReset(false);
                         options.setAppPackage(ConfigReader.getProperty("android.appPackage"));
                         options.setAppActivity(ConfigReader.getProperty("android.appActivity"));
+                        options.setUdid(ConfigReader.getProperty("android.udid"));
 
                         URL appiumUrl = new URL(ConfigReader.getProperty("appium.server.url"));
 
