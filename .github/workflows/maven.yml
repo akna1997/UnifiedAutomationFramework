@@ -24,7 +24,7 @@ jobs:
           cache: maven # Mempercepat download library di eksekusi berikutnya
 
       - name: 3. Clean old alure report
-        run: rm -rf target/allure-result
+        run: rm -rf target/allure-results
 
       - name: 4. Jalankan Pengujian Web (Headless Mode)
         run: |
