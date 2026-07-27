@@ -1,8 +1,7 @@
 package com.qa.framework.utils;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigReader {
@@ -10,18 +9,19 @@ public class ConfigReader {
 
     static {
         try {
-            String configFilePath = "src/test/resources/config.properties";
-            FileInputStream fileInputStream = new FileInputStream(configFilePath);
+            InputStream input = ConfigReader.class
+                    .getClassLoader()
+                    .getResourceAsStream("config.properties");
 
+            if (input == null) {
+                throw new RuntimeException("config.properties tidak ditemukan di classpath!");
+            }
+            
             properties = new Properties();
-            properties.load(fileInputStream);
-            fileInputStream.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("ERROR: File config.properties tidak ditemukan! Pastikan letaknya di src/test/resources/");
-            e.printStackTrace();
-            throw new RuntimeException("Config file not found");
+            properties.load(input);
+            input.close();
         } catch (IOException e) {
-            System.out.println("ERROR: Gagal membaca file config.properties!");
+            System.out.println("Error : Gagal membaca config.properties");
             e.printStackTrace();
             throw new RuntimeException("Failed to read config file");
         }

@@ -16,9 +16,7 @@ public class Hooks {
         System.out.println("Membuka Browser untuk pengujian Web UI...");
         System.out.println("------------------------------------------------------------");
 
-        System.setProperty("platform", "web");
-
-        DriverManager.initializeDriver("web");
+        DriverManager.initializeDriver(System.getProperty("platform"));
     }
 
     @Before("@Mobile")
@@ -28,9 +26,7 @@ public class Hooks {
         System.out.println("Menghubungkan ke Appium Server untuk pengujian Mobile UI...");
         System.out.println("------------------------------------------------------------");
 
-        System.setProperty("platform", "android");
-
-        DriverManager.initializeDriver("android");
+        DriverManager.initializeDriver(System.getProperty("platform"));
     }
 
     @After("@Web")
@@ -61,7 +57,7 @@ public class Hooks {
         if (DriverManager.getDriver() != null) {
             try {
                 byte[] screenshot = ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
-                scenario.attach(screenshot, "image/png", "Screenshot_Gagal_" + scenario.getName());
+                scenario.attach(screenshot, "image/png", "Screenshot_" + scenario.getName());
                 System.out.println("Screenshot berhasil dilampirkan ke report!");
             } catch (Exception e) {
                 System.err.println("Gagal mengambil screenshot: " + e.getMessage());

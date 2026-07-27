@@ -146,14 +146,13 @@ appActivity Anda adalah teks setelah tanda garis miring (/), yaitu: com.tokopedi
 
 *PS : kita juga butuh DeviceName, PlatformName, dan automation name, dan akan jadi seperti ini (berguna untuk appium inspector) :
 
-```
-{
-    "appium:deviceName": "Pixel 5",
-    "appium:automationName": "UiAutomator2",
-    "platformName": "Android",
-    "appium:appPackage": "com.tokopedia.tkpd",
-    "appium:appActivity": "com.tokopedia.home.HomeActivity"
-}
+    {
+        "appium:deviceName": "Pixel 5",
+        "appium:automationName": "UiAutomator2",
+        "platformName": "Android",
+        "appium:appPackage": "com.tokopedia.tkpd",
+        "appium:appActivity": "com.tokopedia.home.HomeActivity"
+    }
 
 2. Menggunakan Aplikasi Pihak Ketiga (Tanpa Ketik Kode)
 
@@ -175,7 +174,7 @@ appActivity Anda adalah teks setelah tanda garis miring (/), yaitu: com.tokopedi
 2. Masuk ke folder tempat kamu ingin menyimpan proyek, lalu klon repositori dari GitHub:
 
     ```Bash
-    git clone [https://github.com/akna1997/UnifiedAutomationFramework.git](https://github.com/akna1997/UnifiedAutomationFramework.git)
+    git clone https://github.com/akna1997/UnifiedAutomationFramework.git
 3. Buka aplikasi IntelliJ IDEA.
 
 4. Pilih Open, lalu arahkan ke folder UnifiedAutomationFramework yang baru saja diunduh.
@@ -186,9 +185,7 @@ appActivity Anda adalah teks setelah tanda garis miring (/), yaitu: com.tokopedi
 1. Mode Normal (Membuka Jendela Browser Chrome secara Visual)
    ```Bash
    mvn clean test -Dplatform="Web" -Dcucumber.filter.tags="@Web" -Dheadless="false"
-   
 2. Mode Headless (Berjalan di Latar Belakang tanpa Membuka UI Browser)
-
    ```Bash
    mvn clean test -Dplatform="Web" -Dcucumber.filter.tags="@Web" -Dheadless="true"
 Catatan Parameter:
@@ -214,12 +211,10 @@ Ketik perintah ini di terminal IntelliJ:
 
    ```Bash
    mvn allure:serve
-   
 Sistem akan otomatis merakit data dan membuka browser bawaan laptopmu untuk menampilkan dashboard interaktif Allure. Tekan Ctrl+C di terminal jika ingin mematikan server laporan.
 
 2. Laporan Offline Statis (Untuk dikirim ke tim via ZIP)Jalankan perintah:
 
    ```Bash
    mvn allure:report
-   
 Hasil laporan statis akan terbentuk di folder: target/site/allure-maven-plugin/.

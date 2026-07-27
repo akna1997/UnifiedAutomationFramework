@@ -40,3 +40,4 @@ build/
 
 .idea/
 .allure/
+config.local.properties

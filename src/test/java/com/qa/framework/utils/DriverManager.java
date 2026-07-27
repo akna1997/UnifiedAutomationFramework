@@ -20,7 +20,7 @@ public class DriverManager {
 
         System.out.println("Menyiapkan Driver untuk Platform: " + platform);
 
-        if (platform.equals("web")) {
+        if (platform.equals("Web")) {
             String browserName = ConfigReader.getProperty("browser").toLowerCase();
 
             System.out.println("Inisialisasi browser: " + browserName);
@@ -74,7 +74,6 @@ public class DriverManager {
                         options.setNoReset(false);
                         options.setAppPackage(ConfigReader.getProperty("android.appPackage"));
                         options.setAppActivity(ConfigReader.getProperty("android.appActivity"));
-                        options.setUdid(ConfigReader.getProperty("android.udid"));
 
                         URL appiumUrl = new URL(ConfigReader.getProperty("appium.server.url"));
 
