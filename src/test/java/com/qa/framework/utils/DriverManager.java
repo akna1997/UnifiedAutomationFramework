@@ -16,8 +16,6 @@ public class DriverManager {
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     public static void initializeDriver(String platform) {
-        long timeout = Long.parseLong(ConfigReader.getProperty("timeout"));
-
         System.out.println("Menyiapkan Driver untuk Platform: " + platform);
 
         if (platform.equals("Web")) {
@@ -94,7 +92,7 @@ public class DriverManager {
             }
         }
 
-        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(timeout));
+        // getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(timeout)); <- jgn pake implicit Wait dan explixit wait barengan
     }
 
     public static WebDriver getDriver() {

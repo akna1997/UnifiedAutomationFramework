@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import com.qa.framework.utils.ConfigReader;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
@@ -17,8 +18,9 @@ public class BasePage {
     String platform = com.qa.framework.utils.ConfigReader.getProperty("platform").toLowerCase();
 
     public BasePage(WebDriver driver) {
+        long waitSeconds = Long.parseLong(ConfigReader.getProperty("timeout"));
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(waitSeconds));
     }
 
     protected void click(WebElement element) {

@@ -120,7 +120,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <testFailureIgnore>true</testFailureIgnore>
                     <systemPropertyVariables>
                         <platform>${platform}</platform>
                         <cucumber.filter.tags>${cucumber.filter.tags}</cucumber.filter.tags>
