@@ -3,6 +3,7 @@ package com.qa.framework.pages.web;
 import com.qa.framework.pages.base.BasePage;
 import com.qa.framework.pages.elements.SearchElements;
 import org.openqa.selenium.WebDriver;
+import java.util.Objects;
 
 public class TokopediaHomePage extends BasePage {
 
@@ -25,6 +26,7 @@ public class TokopediaHomePage extends BasePage {
     }
 
     public boolean searchBoxText(String textNamaBarang) {
-        return elements.kolomPencarian.getAttribute("value").equals(textNamaBarang);
+        String searchboxText = elements.kolomPencarian.getAttribute("value");
+        return Objects.equals(searchboxText ,textNamaBarang);
     }
 }

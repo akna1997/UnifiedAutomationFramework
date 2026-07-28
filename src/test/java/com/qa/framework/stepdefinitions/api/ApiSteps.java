@@ -16,7 +16,7 @@ public class ApiSteps {
 
     private Response response;
     private String endpoint;
-    private static final Logger log = LoggerFactory.getLogger(BasePage.class);
+    private static final Logger log = LoggerFactory.getLogger(ApiSteps.class);
 
     @Given("user mengatur endpoint API pencarian")
     public void userMengaturEndpointApi() {

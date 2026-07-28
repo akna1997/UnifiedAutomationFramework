@@ -20,7 +20,7 @@ public class ApiAddProductSteps
     private Response response;
     private String endpoint;
     private String payloadJSON;
-    private static final Logger log = LoggerFactory.getLogger(BasePage.class);
+    private static final Logger log = LoggerFactory.getLogger(ApiSteps.class);
 
     @Given("user mengatur base URL untuk tambah produk")
     public void userMengaturBaseUrlTambahProduk() {
