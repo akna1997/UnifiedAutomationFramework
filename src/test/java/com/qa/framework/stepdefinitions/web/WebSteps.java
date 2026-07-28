@@ -7,6 +7,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+import com.qa.framework.utils.SoftAssertManager;
 
 public class WebSteps {
 
@@ -26,7 +27,11 @@ public class WebSteps {
     @Then("sistem harus menampilkan daftar produk yang relevan")
     public void sistem_harus_menampilkan_daftar_produk_yang_relevan() {
         boolean isVisible = hompage.apakahDaftarProdukMuncul();
-        Assert.assertTrue(isVisible, "Gagal! Daftar produk tidak muncul di layar.");
+        SoftAssertManager.get().assertTrue(isVisible, "Gagal! Daftar produk tidak muncul di layar.");
+    }
 
+    @Then("searchbox harus terisi dengan text {string}")
+    public void searchbox_harus_terisi_dengan_text(String namaBarang) {
+        SoftAssertManager.get().assertTrue(hompage.searchBoxText(namaBarang), "sudah mantap");
     }
 }

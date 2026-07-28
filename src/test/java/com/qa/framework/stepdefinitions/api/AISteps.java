@@ -25,11 +25,19 @@ public class AISteps {
         
         System.out.println("Menghubungi Gemini AI...");
         this.geminiVerdict = GeminiAIUtil.askGemini(prompt);
-        System.out.println("Keputusan Gemini: " + geminiVerdict);
+        if (this.geminiVerdict != null) {
+            System.out.println("Keputusan Gemini: " + geminiVerdict);
+        } else {
+            System.out.println("PLease cek Credit or token AI");
+        }
     }
 
     @Then("Gemini harus menjawab {string}")
     public void geminiHarusMenjawab(String expectedVerdict) {
-        Assert.assertEquals(geminiVerdict, expectedVerdict, "Validasi berhasil");
+        if (this.geminiVerdict != null) {
+            Assert.assertEquals(geminiVerdict, expectedVerdict, "Validasi berhasil");
+        } else {
+            System.out.println("PLease cek Credit or token AI");
+        }
     }
 }

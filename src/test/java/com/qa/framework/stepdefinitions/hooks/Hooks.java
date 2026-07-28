@@ -6,6 +6,7 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import com.qa.framework.utils.SoftAssertManager;
 
 public class Hooks {
 
@@ -51,6 +52,11 @@ public class Hooks {
         System.out.println("Mematikan Sesi Appium Mobile...");
         DriverManager.quitDriver();
         System.out.println("------------------------------------------------------------");
+    }
+
+    @After
+    public void tearDownGlobal(Scenario scenario) {
+        SoftAssertManager.assertAll();
     }
 
     private void TakeScreenshot(Scenario scenario) {

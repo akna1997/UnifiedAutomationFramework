@@ -1,5 +1,6 @@
 package com.qa.framework.stepdefinitions.api;
 
+import com.qa.framework.pages.base.BasePage;
 import com.qa.framework.utils.ConfigReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,6 +11,8 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import java.nio.file.Paths;
 import java.nio.file.Files;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ApiAddProductSteps
 {
@@ -17,6 +20,7 @@ public class ApiAddProductSteps
     private Response response;
     private String endpoint;
     private String payloadJSON;
+    private static final Logger log = LoggerFactory.getLogger(BasePage.class);
 
     @Given("user mengatur base URL untuk tambah produk")
     public void userMengaturBaseUrlTambahProduk() {
@@ -44,9 +48,9 @@ public class ApiAddProductSteps
     public void responApiHarusMengembalikanId() {
         response.then().body("id", notNullValue());
 
-        System.out.println("Produk berhasil ditambahkan! Berikut request dari server:");
+        log.info("Request from client:");
         System.out.println(payloadJSON);
-        System.out.println("Produk berhasil ditambahkan! Berikut respon server:");
+        log.info("Response from server:");
         System.out.println(response.asPrettyString());
     }
 }

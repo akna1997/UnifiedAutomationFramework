@@ -1,5 +1,6 @@
 package com.qa.framework.stepdefinitions.api;
 
+import com.qa.framework.pages.base.BasePage;
 import com.qa.framework.utils.ConfigReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -8,11 +9,14 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ApiSteps {
 
     private Response response;
     private String endpoint;
+    private static final Logger log = LoggerFactory.getLogger(BasePage.class);
 
     @Given("user mengatur endpoint API pencarian")
     public void userMengaturEndpointApi() {
@@ -38,9 +42,7 @@ public class ApiSteps {
     public void responApiHarusMenampilkanDataProduk(int minimalData) {
         response.then().body("products.size()", greaterThanOrEqualTo(minimalData));
 
-        // Print hasil JSON ke terminal agar kita bisa melihat datanya
-        System.out.println("================ HASIL RESPON API ================");
+        log.info("Response from server:");
         System.out.println(response.asPrettyString());
-        System.out.println("==================================================");
     }
 }

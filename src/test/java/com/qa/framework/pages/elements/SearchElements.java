@@ -17,11 +17,11 @@ public class SearchElements {
         PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(10)), this);
     }
 
-    @FindBy(xpath = "//input[@aria-label='Cari di Tokopedia']")
+    @FindBy(css = "input[aria-label='Cari di Tokopedia']")
     @AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,'searchTextView') or contains(@resource-id, 'et_search')]")
     public WebElement kolomPencarian;
 
-    @FindBy(xpath = "//div[@data-testid='imgLeg-c']")
+    @FindBy(css = "div[data-testid='imgLeg-c']")
     @AndroidFindBy(xpath = "(//*[contains(@resource-id,'searchProductCardGridReimagine')])[1]")
     public WebElement kontainerProduk;
 

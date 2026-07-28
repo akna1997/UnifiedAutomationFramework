@@ -23,4 +23,8 @@ public class TokopediaHomePage extends BasePage {
     public boolean apakahDaftarProdukMuncul() {
         return isDisplayed(elements.kontainerProduk);
     }
+
+    public boolean searchBoxText(String textNamaBarang) {
+        return elements.kolomPencarian.getAttribute("value").equals(textNamaBarang);
+    }
 }

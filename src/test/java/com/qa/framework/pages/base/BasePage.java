@@ -9,6 +9,8 @@ import com.qa.framework.utils.ConfigReader;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
@@ -16,6 +18,7 @@ public class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
     String platform = com.qa.framework.utils.ConfigReader.getProperty("platform").toLowerCase();
+    private static final Logger log = LoggerFactory.getLogger(BasePage.class);
 
     public BasePage(WebDriver driver) {
         long waitSeconds = Long.parseLong(ConfigReader.getProperty("timeout"));
@@ -42,21 +45,21 @@ public class BasePage {
     }
 
     protected void pressBack() {
+        log.info("Press physical back button on {} ...", platform);
+
         if (platform.equals("android")) {
-            System.out.println("Menekan tombol fisik BACK di Android...");
             ((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
         } else {
-            System.out.println("Menekan tombol BACK di Browser Web...");
             driver.navigate().back();
         }
     }
 
     protected void pressEnter(WebElement element) {
+        log.info("Press physical Enter button on {} ...", platform);
+        
         if (platform.equals("android")) {
-            System.out.println("Menekan tombol ENTER di Android...");
             ((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.ENTER));
         } else {
-            System.out.println("Menekan tombol ENTER di Browser Web...");
             element.sendKeys(Keys.ENTER);
         }
     }

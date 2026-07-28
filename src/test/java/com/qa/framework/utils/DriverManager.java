@@ -7,6 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.time.Duration;
@@ -14,14 +16,15 @@ import java.time.Duration;
 public class DriverManager {
 
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    private static final Logger log = LoggerFactory.getLogger(DriverManager.class);
 
     public static void initializeDriver(String platform) {
-        System.out.println("Menyiapkan Driver untuk Platform: " + platform);
+        log.info("Getting driver ready for Platform: {}", platform);
 
         if (platform.equals("Web")) {
             String browserName = ConfigReader.getProperty("browser").toLowerCase();
 
-            System.out.println("Inisialisasi browser: " + browserName);
+            log.info("Inisialisasi browser: {}", browserName);
             String isHeadless = System.getProperty("headless", "false");
 
             switch (browserName) {
@@ -35,7 +38,7 @@ public class DriverManager {
                         chromeOptions.addArguments("--disable-blink-features=AutomationControlled");
                         chromeOptions.addArguments("--incognito");
                         chromeOptions.addArguments("--window-size=1920,1080");
-                        System.out.println("Menjalankan Chrome dalam mode HEADLESS...");
+                        log.info("Run {} browser in headless mode ...", browserName);
                     }
                     chromeOptions.addArguments("--remote-allow-origins=*");
                     chromeOptions.addArguments("--start-maximized"); // Buka layar penuh
@@ -51,7 +54,7 @@ public class DriverManager {
                     break;
 
                 default:
-                    throw new IllegalArgumentException("Browser tidak didukung: " + browserName);
+                    throw new IllegalArgumentException("Browser not supported: " + browserName);
             }
         } else {
             switch (platform) {
@@ -77,7 +80,7 @@ public class DriverManager {
 
                         driver.set(new AndroidDriver(appiumUrl, options));
                     } catch (Exception e) {
-                        System.out.println("ERROR: Gagal koneksi ke Appium Server!");
+                        log.error("ERROR: Failed connect to Appium Server!");
                         e.printStackTrace();
                         throw new RuntimeException("Appium initialization failed.");
                     }
@@ -88,7 +91,7 @@ public class DriverManager {
                     break;
 
                 default:
-                    throw new IllegalArgumentException("platform tidak didukung: " + platform);
+                    throw new IllegalArgumentException("platform not supported: " + platform);
             }
         }
 
@@ -101,7 +104,7 @@ public class DriverManager {
 
     public static void quitDriver() {
         if (driver.get() != null) {
-            System.out.println("Menutup browser atau apps ...");
+            log.info("Closing browser or apps ...");
             driver.get().quit();
             driver.remove();
         }
