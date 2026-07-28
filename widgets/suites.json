@@ -1,1 +1,1 @@
-{"total":1,"items":[{"uid":"1c00e58f5c60dc7a4e2c2032e926bce6","name":"Pencarian Barang Hardware di E-Commerce","statistic":{"failed":0,"broken":0,"skipped":0,"passed":3,"unknown":0,"total":3}}]}
+{"total":2,"items":[{"uid":"1c00e58f5c60dc7a4e2c2032e926bce6","name":"Pencarian Barang Hardware di E-Commerce","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}},{"uid":"ee86322a66138e6a0469af61c83512a2","name":"Pencarian Barang Software di E-Commerce","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}
