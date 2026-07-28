@@ -14,7 +14,7 @@ public class Hooks {
     public void setupWeb(Scenario scenario) {
         System.out.println("------------------------------------------------------------");
         System.out.println("START SCENARIO (WEB): " + scenario.getName());
-        System.out.println("Membuka Browser untuk pengujian Web UI...");
+        System.out.println("Opening Browser ...");
         System.out.println("------------------------------------------------------------");
 
         DriverManager.initializeDriver(System.getProperty("platform"));
@@ -24,7 +24,7 @@ public class Hooks {
     public void setUpMobile(Scenario scenario) {
         System.out.println("------------------------------------------------------------");
         System.out.println("START SCENARIO (MOBILE): " + scenario.getName());
-        System.out.println("Menghubungkan ke Appium Server untuk pengujian Mobile UI...");
+        System.out.println("Connecting to Appium Server");
         System.out.println("------------------------------------------------------------");
 
         DriverManager.initializeDriver(System.getProperty("platform"));
@@ -37,7 +37,7 @@ public class Hooks {
 
         TakeScreenshot(scenario);
 
-        System.out.println("Menutup Web Browser...");
+        System.out.println("Closing Web Browser...");
         DriverManager.quitDriver();
         System.out.println("------------------------------------------------------------");
     }
@@ -49,7 +49,7 @@ public class Hooks {
 
         TakeScreenshot(scenario);
 
-        System.out.println("Mematikan Sesi Appium Mobile...");
+        System.out.println("End Appium Mobile Session...");
         DriverManager.quitDriver();
         System.out.println("------------------------------------------------------------");
     }
@@ -64,9 +64,9 @@ public class Hooks {
             try {
                 byte[] screenshot = ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
                 scenario.attach(screenshot, "image/png", "Screenshot_" + scenario.getName());
-                System.out.println("Screenshot berhasil dilampirkan ke report!");
+                System.out.println("Screenshot succeeded added inside the report report!");
             } catch (Exception e) {
-                System.err.println("Gagal mengambil screenshot: " + e.getMessage());
+                System.err.println("Failed to take screenshot: " + e.getMessage());
             }
         }
     }
