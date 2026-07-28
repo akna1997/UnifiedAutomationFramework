@@ -8,12 +8,15 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 public class ApiAddProductSteps
 {
 
     private Response response;
     private String endpoint;
+    private String payloadJSON;
 
     @Given("user mengatur base URL untuk tambah produk")
     public void userMengaturBaseUrlTambahProduk() {
@@ -22,13 +25,8 @@ public class ApiAddProductSteps
     }
 
     @When("user mengirim POST request dengan data barang baru")
-    public void userMengirimPostRequestDenganData() {
-        String payloadJSON = "{\n" +
-                "  \"title\": \"Housing Filter Air 10 Inch (Clear)\",\n" +
-                "  \"price\": 125000,\n" +
-                "  \"description\": \"Tabung housing pengganti untuk filter air rumah tangga\",\n" +
-                "  \"category\": \"home-improvement\"\n" +
-                "}";
+    public void userMengirimPostRequestDenganData() throws Exception {
+         payloadJSON = new String(Files.readAllBytes(Paths.get("src/test/resources/testdata/api_product.json")));
 
         response = given()
                 .header("Content-Type", "application/json")
@@ -46,6 +44,8 @@ public class ApiAddProductSteps
     public void responApiHarusMengembalikanId() {
         response.then().body("id", notNullValue());
 
+        System.out.println("Produk berhasil ditambahkan! Berikut request dari server:");
+        System.out.println(payloadJSON);
         System.out.println("Produk berhasil ditambahkan! Berikut respon server:");
         System.out.println(response.asPrettyString());
     }
