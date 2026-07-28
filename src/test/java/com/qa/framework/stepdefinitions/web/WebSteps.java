@@ -6,7 +6,6 @@ import com.qa.framework.pages.web.TokopediaHomePage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.testng.Assert;
 import com.qa.framework.utils.SoftAssertManager;
 
 public class WebSteps {

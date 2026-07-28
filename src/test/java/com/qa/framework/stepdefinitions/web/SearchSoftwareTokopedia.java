@@ -2,11 +2,11 @@ package com.qa.framework.stepdefinitions.web;
 
 import com.qa.framework.utils.ConfigReader;
 import com.qa.framework.utils.DriverManager;
+import org.testng.Assert;
 import com.qa.framework.pages.web.TokopediaHomePage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import com.qa.framework.utils.SoftAssertManager;
 
 public class SearchSoftwareTokopedia {
 
@@ -26,6 +26,6 @@ public class SearchSoftwareTokopedia {
     @Then("sistem harus menampilkan software produk yang relevan")
     public void sistem_harus_menampilkan_software_produk_yang_relevan() {
         boolean isVisible = hompage.apakahDaftarProdukMuncul();
-        SoftAssertManager.get().assertTrue(isVisible, "Gagal! Daftar produk software tidak muncul di layar.");
+        Assert.assertTrue(isVisible, "Gagal! Daftar produk software tidak muncul di layar.");
     }
 }

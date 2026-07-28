@@ -23,29 +23,37 @@ jobs:
           distribution: 'temurin'
           cache: maven # Mempercepat download library di eksekusi berikutnya
 
-      - name: 3. Clean old alure report
+      - name: 3. Download Allure History (buat trend)
+        uses: actions/download-artifact@v4
+        if: always()
+        continue-on-error: true
+        with:
+          name: allure-history
+          path: target/allure-results/history
+
+      - name: 4. Clean old alure report
         run: rm -rf target/allure-results
 
-      - name: 4. Jalankan Pengujian Web (Headless Mode)
+      - name: 5. Jalankan Pengujian Web (Headless Mode)
         run: |
           mvn clean test -Dplatform="Web" -Dcucumber.filter.tags="@Web or @Api" -Dheadless="true"
 
-      - name: 5. Generate Allure Static Report
+      - name: 6. Generate Allure Static Report
         if: always()
         run: |
           mvn allure:report
 
-      - name: 6. Upload Laporan ke GitHub Pages (Biar Bisa Diakses Online)
+      - name: 7. Upload Laporan ke GitHub Pages (Biar Bisa Diakses Online)
         uses: peaceiris/actions-gh-pages@v4
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site/allure-maven-plugin # Folder laporan statis kita
 
-      - name: 7. Simpan Raw Allure Results sebagai Artifact
+      - name: 7. Simpan Allure History untuk Trend
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: allure-results-raw
-          path: target/allure-results/ 
-          retention-days: 14 # Simpan file ini selama 14 hari
+          name: allure-history
+          path: target/allure-results/history
+          retention-days: 30

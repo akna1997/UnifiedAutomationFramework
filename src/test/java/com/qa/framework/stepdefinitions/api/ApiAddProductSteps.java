@@ -1,6 +1,5 @@
 package com.qa.framework.stepdefinitions.api;
 
-import com.qa.framework.pages.base.BasePage;
 import com.qa.framework.utils.ConfigReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
