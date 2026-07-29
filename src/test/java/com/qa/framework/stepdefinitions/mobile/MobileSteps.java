@@ -24,7 +24,7 @@ public class MobileSteps {
     @Then("Mobile sistem harus menampilkan daftar produk yang relevan")
     public void Mobile_sistem_harus_menampilkan_daftar_produk_yang_relevan() {
         boolean isVisible = hompage.apakahDaftarProdukMuncul();
-        Assert.assertTrue(isVisible, "Gagal! Daftar produk tidak muncul di layar.");
+        Assert.assertTrue(isVisible, "Failed, list product doesn't show");
 
     }
 }
