@@ -87,7 +87,7 @@ public class DriverManager {
                     break;
 
                 case "ios":
-                    System.out.println("untuk initialized ios driver");
+                    System.out.println("for initialized ios driver");
                     break;
 
                 default:
