@@ -15,7 +15,7 @@ public class GeminiAIUtil {
 
     public static String askGemini(String prompt) {
         try {
-            // Membentuk JSON Body sesuai standar API Gemini
+            // Create json request
             JSONObject part = new JSONObject();
             part.put("text", prompt);
 
@@ -34,25 +34,23 @@ public class GeminiAIUtil {
                     .POST(HttpRequest.BodyPublishers.ofString(jsonBodyString))
                     .build();
 
-            // Menembak API dan mendapatkan response
+            // Hit API
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            // Mengambil teks jawaban dari JSON response Gemini
+            // Get text response
             JSONObject jsonResponse = new JSONObject(response.body());
 
-            // 1. Cek kalau Gemini balikin ERROR (key invalid, quota, dll)
+            // check gemini response error
             if (jsonResponse.has("error")) {
                 JSONObject error = jsonResponse.getJSONObject("error");
                 System.err.println("Gemini ERROR " + error.optInt("code") + ": " + error.optString("message"));
                 return null;
             }
             
-            // 2. Cek kalau prompt di-blokir safety (candidates kosong)
+            // check if gemini has candidates or not 
             if (!jsonResponse.has("candidates") || jsonResponse.getJSONArray("candidates").isEmpty()) {
-                String blockReason = jsonResponse.has("promptFeedback")
-                        ? jsonResponse.getJSONObject("promptFeedback").optString("blockReason", "unknown")
-                        : "candidates kosong";
-                System.err.println("Gemini tidak mengembalikan jawaban. Penyebab: " + blockReason);
+                String blockReason = jsonResponse.has("promptFeedback") ? jsonResponse.getJSONObject("promptFeedback").optString("blockReason", "unknown") : "candidates empty";
+                System.err.println("Gemini has no response, Reason : " + blockReason);
                 return null;
             }
             JSONArray candidatesResp = jsonResponse.getJSONArray("candidates");
@@ -63,7 +61,7 @@ public class GeminiAIUtil {
             return textResp;
 
         } catch (Exception e) {
-            System.err.println("Gagal menghubungi Gemini API: " + e.getMessage());
+            System.err.println("Gemini API failed to response: " + e.getMessage());
             return null;
         }
     }
