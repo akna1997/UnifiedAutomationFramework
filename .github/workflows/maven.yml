@@ -26,9 +26,9 @@
           - name: 3. Clean old allure report
             run: rm -rf target/allure-results
     
-          - name: 4. Jalankan Pengujian (Web + API, Headless)
+          - name: 4. Jalankan Pengujian (Web(Headless) + API)
             run: |
-              mvn clean test -Dplatform="Web" -Dcucumber.filter.tags="@Api or @Web" -Dheadless="true"
+              mvn clean test -Dplatform=Web -Dheadless=true
     
           - name: 5. Generate Allure Static Report
             if: always()
