@@ -1,0 +1,5 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Wed Jul 29 16:03:30 UTC 2026","Wed Jul 29 16:04:18 UTC 2026","47364","","Pencarian Barang Software di E-Commerce","","User mencari Windows 11","","User mencari Windows 11",""
+"passed","Wed Jul 29 16:03:35 UTC 2026","Wed Jul 29 16:03:36 UTC 2026","348","","API Pencarian Barang E-Commerce","","Sukses mencari produk spesifik via API","","Sukses mencari produk spesifik via API",""
+"broken","Wed Jul 29 16:04:18 UTC 2026","Wed Jul 29 16:04:24 UTC 2026","6559","","Pencarian Barang Hardware di E-Commerce","","Pengguna mencari komponen peralatan rumah tangga","","Pengguna mencari komponen peralatan rumah tangga",""
+"passed","Wed Jul 29 16:03:30 UTC 2026","Wed Jul 29 16:03:35 UTC 2026","4658","","API Add Barang E-Commerce","","Sukses menambahkan produk hardware baru ke dalam sistem","","Sukses menambahkan produk hardware baru ke dalam sistem",""
