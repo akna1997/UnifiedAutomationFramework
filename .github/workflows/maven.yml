@@ -25,10 +25,10 @@ jobs:
 
       - name: 3. Download Allure Results dari Run Sebelumnya
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: allure-results-raw
           path: target/allure-results/
-        continue-on-error:
 
       - name: 3. Jalankan Pengujian (Web(Headless) + API)
         run: |
