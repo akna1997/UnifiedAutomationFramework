@@ -29,14 +29,14 @@ public class AISteps {
         if (this.geminiVerdict != null) {
             System.out.println("Keputusan Gemini: " + geminiVerdict);
         } else {
-            System.out.println("Please cek Credit or token AI");
+            System.out.println("Please check Credit or token AI");
         }
     }
 
     @Then("Gemini harus menjawab {string}")
     public void geminiHarusMenjawab(String expectedVerdict) {
         if (this.geminiVerdict != null) {
-            throw new SkipException("Please cek Credit or token AI");
+            throw new SkipException("Please check Credit or token AI");
         }
 
         Assert.assertEquals(geminiVerdict, expectedVerdict, "Validasi berhasil");
