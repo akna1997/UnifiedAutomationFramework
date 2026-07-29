@@ -47,8 +47,9 @@ jobs:
         if: always()
         run: |
           DATE=$(date +%Y-%m-%d)
-          RUN_NUM=$(jq 'length' gh-pages-history/history/history.json 2>/dev/null || echo 0)
-          REPORT_DIR="gh-pages-history/reports/${DATE}-run${RUN_NUM}"
+          REPORT_DIR="gh-pages-history/reports/${DATE}"
+          COUNT=$(ls -d "$REPORT_DIR"-run* 2>/dev/null | wc -l)
+          REPORT_DIR="${REPORT_DIR}-run$((COUNT + 1))"
 
           mkdir -p "$REPORT_DIR"
 
@@ -62,7 +63,7 @@ jobs:
           git config user.email "action@github.com"
           git config user.name "GitHub Action"
           git add .
-          git diff-index --quiet HEAD || git commit -m "Add report ${DATE}-run${RUN_NUM}" && git push origin gh-pages
+          git diff-index --quiet HEAD || git commit -m "Add report ${REPORT_DIR}" && git push origin gh-pages
 
       - name: 8. Simpan Raw Allure Results sebagai Artifact
         uses: actions/upload-artifact@v4
