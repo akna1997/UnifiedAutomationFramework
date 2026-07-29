@@ -24,7 +24,7 @@ public class DriverManager {
         if (platform.equals("Web")) {
             String browserName = ConfigReader.getProperty("browser").toLowerCase();
 
-            log.info("Inisialisasi browser: {}", browserName);
+            log.info("Browser Initialize: {}", browserName);
             String isHeadless = System.getProperty("headless", "false");
 
             switch (browserName) {
