@@ -30,23 +30,30 @@ jobs:
           name: allure-results-raw
           path: target/allure-results/
 
-      - name: 3. Jalankan Pengujian (Web(Headless) + API)
+      - name: 4. Jalankan Pengujian (Web(Headless) + API)
         run: |
           mvn clean test -Dplatform=Web -Dheadless=true
 
-      - name: 4. Generate Allure Static Report
+      - name: 5. Gabungkan Hasil Lama + Baru
+        run: |
+          mkdir -p target/allure-results
+          if [ -d target/allure-results-history ]; then
+            cp -r target/allure-results-history/* target/allure-results/
+          fi
+
+      - name: 6. Generate Allure Static Report
         if: always()
         run: |
           mvn allure:report
 
-      - name: 5. Upload Laporan ke GitHub Pages
+      - name: 7. Upload Laporan ke GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site/allure-maven-plugin
 
-      - name: 6. Simpan Raw Allure Results sebagai Artifact
+      - name: 8. Simpan Raw Allure Results sebagai Artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
