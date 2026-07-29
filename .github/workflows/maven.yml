@@ -23,16 +23,21 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: 3. Download Allure Results dari Run Sebelumnya
+      - name: 3. Ambil Run Sebelumnya
+        id: get-prev-run
+        run: |
+          RUN_ID=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/runs?branch=${{ github.ref_name }}&per_page=2" \
+            | jq -r '.workflow_runs[1].id // empty')
+          echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
+
+      - name: 4. Download Allure Results dari Run Sebelumnya
         uses: actions/download-artifact@v4
         continue-on-error: true
         with:
           name: allure-results-raw
           path: target/allure-results-history/
-
-      - name: 4. Jalankan Pengujian (Web(Headless) + API)
-        run: |
-          mvn clean test -Dplatform=Web -Dheadless=true
+          run-id: ${{ steps.get-prev-run.outputs.run_id }}
 
       - name: 5. Gabungkan Hasil Lama + Baru
         run: |
@@ -40,6 +45,7 @@ jobs:
           if [ -d target/allure-results-history ]; then
             cp -r target/allure-results-history/* target/allure-results/
           fi
+          mvn test -Dplatform=Web -Dheadless=true
 
       - name: 6. Generate Allure Static Report
         if: always()
