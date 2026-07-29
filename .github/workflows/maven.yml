@@ -23,26 +23,23 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: 3. Clean old allure report
-        run: rm -f target/allure-results/*.json
-
-      - name: 4. Jalankan Pengujian (Web(Headless) + API)
+      - name: 3. Jalankan Pengujian (Web(Headless) + API)
         run: |
-          mvn test -Dplatform=Web -Dheadless=true
+          mvn clean test -Dplatform=Web -Dheadless=true
 
-      - name: 5. Generate Allure Static Report
+      - name: 4. Generate Allure Static Report
         if: always()
         run: |
           mvn allure:report
 
-      - name: 6. Upload Laporan ke GitHub Pages
+      - name: 5. Upload Laporan ke GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site/allure-maven-plugin
 
-      - name: 7. Simpan Raw Allure Results sebagai Artifact
+      - name: 6. Simpan Raw Allure Results sebagai Artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
