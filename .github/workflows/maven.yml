@@ -50,20 +50,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site/allure-maven-plugin
 
-      - name: 8. Simpan History Baru kembali ke gh-pages
-        if: always()
-        run: |
-          if [ -d target/site/allure-maven-plugin/history ]; then
-            mkdir -p gh-pages-history/history
-            cp -r target/site/allure-maven-plugin/history/* gh-pages-history/history/
-            cd gh-pages-history
-            git config user.email "action@github.com"
-            git config user.name "GitHub Action"
-            git add history/
-            git diff-index --quiet HEAD || git commit -m "Update Allure history" && git push origin gh-pages
-          fi
-
-      - name: 9. Simpan Raw Allure Results sebagai Artifact
+      - name: 8. Simpan Raw Allure Results sebagai Artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
