@@ -1,51 +1,51 @@
-    name: Cross-Platform Automation CI
-    
-    on:
-      push:
-        branches: [ "main", "master" ]
-      pull_request:
-        branches: [ "main", "master" ]
-      repository_dispatch:
-        types: [trigger-from-jenkins]
-    
-    jobs:
-      automation-test:
-        runs-on: ubuntu-latest
-    
-        steps:
-          - name: 1. Ambil Kode Terbaru dari GitHub
-            uses: actions/checkout@v4
-    
-          - name: 2. Setup Java JDK 17
-            uses: actions/setup-java@v4
-            with:
-              java-version: '17'
-              distribution: 'temurin'
-              cache: maven
-    
-          - name: 3. Clean old allure report
-            run: rm -rf target/allure-results
-    
-          - name: 4. Jalankan Pengujian (Web(Headless) + API)
-            run: |
-              mvn clean test -Dplatform=Web -Dheadless=true
-    
-          - name: 5. Generate Allure Static Report
-            if: always()
-            run: |
-              mvn allure:report
-    
-          - name: 6. Upload Laporan ke GitHub Pages
-            uses: peaceiris/actions-gh-pages@v4
-            if: always()
-            with:
-              github_token: ${{ secrets.GITHUB_TOKEN }}
-              publish_dir: ./target/site/allure-maven-plugin
-    
-          - name: 7. Simpan Raw Allure Results sebagai Artifact
-            uses: actions/upload-artifact@v4
-            if: always()
-            with:
-              name: allure-results-raw
-              path: target/allure-results/
-              retention-days: 14
+name: Cross-Platform Automation CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  repository_dispatch:
+    types: [trigger-from-jenkins]
+
+jobs:
+  automation-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Ambil Kode Terbaru dari GitHub
+        uses: actions/checkout@v4
+
+      - name: 2. Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: 3. Clean old allure report
+        run: rm -f target/allure-results/*.json
+
+      - name: 4. Jalankan Pengujian (Web(Headless) + API)
+        run: |
+          mvn test -Dplatform=Web -Dheadless=true
+
+      - name: 5. Generate Allure Static Report
+        if: always()
+        run: |
+          mvn allure:report
+
+      - name: 6. Upload Laporan ke GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site/allure-maven-plugin
+
+      - name: 7. Simpan Raw Allure Results sebagai Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-results-raw
+          path: target/allure-results/
+          retention-days: 30

@@ -1,0 +1,35 @@
+name: Regenerate Allure Report
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'GitHub Actions Run ID to regenerate report from'
+        required: true
+    
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Allure Results from Old Run
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results-run-${{ inputs.run_id }}
+          path: target/allure-results/
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Generate Allure Report
+        run: mvn allure:report
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site/allure-maven-plugin
+          destination_dir: reports/run-${{ inputs.run_id }}
