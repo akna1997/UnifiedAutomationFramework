@@ -14,7 +14,7 @@ public class TokopediaHomePageMobile extends BasePage {
     }
 
     public void cariBarang(String namaBarang) {
-        System.out.println("Mencari barang: " + namaBarang);
+        System.out.println("Searching: " + namaBarang);
 
         if (isDisplayed(elements.buttonGabungSekarang)) {
             pressBack();
