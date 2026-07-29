@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+import org.testng.SkipException;
 
 public class AISteps {
 
@@ -28,16 +29,16 @@ public class AISteps {
         if (this.geminiVerdict != null) {
             System.out.println("Keputusan Gemini: " + geminiVerdict);
         } else {
-            System.out.println("PLease cek Credit or token AI");
+            System.out.println("Please cek Credit or token AI");
         }
     }
 
     @Then("Gemini harus menjawab {string}")
     public void geminiHarusMenjawab(String expectedVerdict) {
         if (this.geminiVerdict != null) {
-            Assert.assertEquals(geminiVerdict, expectedVerdict, "Validasi berhasil");
-        } else {
-            System.out.println("PLease cek Credit or token AI");
+            throw new SkipException("Please cek Credit or token AI");
         }
+
+        Assert.assertEquals(geminiVerdict, expectedVerdict, "Validasi berhasil");
     }
 }
