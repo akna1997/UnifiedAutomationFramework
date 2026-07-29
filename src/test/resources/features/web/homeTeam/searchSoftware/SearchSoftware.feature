@@ -1,6 +1,6 @@
 Feature: Pencarian Barang Software di E-Commerce
 
-  @Web
+  @Web @HomeTeam
   Scenario Outline: User mencari Windows 11
     Given Tokopedia homepage terbuka
     When pengguna mencari barang di searchbox "<nama_barang>"

@@ -1,6 +1,6 @@
 Feature: Pencarian Barang Hardware di E-Commerce
 
-  @Web
+  @Web @SearchTeam
   Scenario Outline: Pengguna mencari komponen peralatan rumah tangga
     Given pengguna membuka halaman utama "Tokopedia"
     When pengguna mencari barang "<nama_barang>"

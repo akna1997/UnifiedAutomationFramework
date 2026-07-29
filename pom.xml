@@ -19,8 +19,7 @@
         <jacksondatabind.version>2.16.1</jacksondatabind.version>
         <hamcrest.version>2.2</hamcrest.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <platform>web</platform>
-        <cucumber.filter.tags>@Web</cucumber.filter.tags>
+        <platform>Web</platform>
         <headless>false</headless>
     </properties>
 
@@ -129,7 +128,7 @@
                     </suiteXmlFiles>
                     <systemPropertyVariables>
                         <platform>${platform}</platform>
-                        <!-- <cucumber.filter.tags>${cucumber.filter.tags}</cucumber.filter.tags> -->
+                        <cucumber.filter.tags>${cucumber.filter.tags}</cucumber.filter.tags>
                         <headless>${headless}</headless>
                     </systemPropertyVariables>
                 </configuration>
