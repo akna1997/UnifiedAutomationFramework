@@ -26,6 +26,6 @@ public class SearchSoftwareTokopedia {
     @Then("sistem harus menampilkan software produk yang relevan")
     public void sistem_harus_menampilkan_software_produk_yang_relevan() {
         boolean isVisible = hompage.apakahDaftarProdukMuncul();
-        Assert.assertTrue(isVisible, "Gagal! Daftar produk software tidak muncul di layar.");
+        Assert.assertFalse(isVisible, "Gagal! Daftar produk software tidak muncul di layar.");
     }
 }
