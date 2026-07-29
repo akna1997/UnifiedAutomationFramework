@@ -23,43 +23,47 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: 3. Ambil Run Sebelumnya
-        id: get-prev-run
-        run: |
-          RUN_ID=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/actions/runs?branch=${{ github.ref_name }}&per_page=2" \
-            | jq -r '.workflow_runs[1].id // empty')
-          echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
-
-      - name: 4. Download Allure Results dari Run Sebelumnya
-        uses: actions/download-artifact@v4
-        continue-on-error: true
+      - name: 3. Checkout gh-pages untukambil History Allure
+        uses: actions/checkout@v4
         with:
-          name: allure-results-raw
-          path: target/allure-results-history/
-          run-id: ${{ steps.get-prev-run.outputs.run_id }}
+          ref: gh-pages
+          path: gh-pages-history
 
-      - name: 5. Gabungkan Hasil Lama + Baru
+      - name: 4. Copy History Lama ke Allure Results
         run: |
           mkdir -p target/allure-results
-          if [ -d target/allure-results-history ]; then
-            cp -r target/allure-results-history/* target/allure-results/
+          if [ -d gh-pages-history/history ]; then
+            cp -r gh-pages-history/history target/allure-results/
           fi
-          mvn test -Dplatform=Web -Dheadless=true
 
-      - name: 6. Generate Allure Static Report
+      - name: 5. Jalankan Pengujian (Web Headless + API)
+        run: mvn test -Dplatform=Web -Dheadless=true
+
+      - name: 6. Generate Allure Static Report (dengan history)
         if: always()
-        run: |
-          mvn allure:report
+        run: mvn allure:report
 
-      - name: 7. Upload Laporan ke GitHub Pages
+      - name: 7. Upload Report ke GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         if: always()
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: *** secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site/allure-maven-plugin
 
-      - name: 8. Simpan Raw Allure Results sebagai Artifact
+      - name: 8. Simpan History Baru kembali ke gh-pages
+        if: always()
+        run: |
+          if [ -d target/site/allure-maven-plugin/history ]; then
+            mkdir -p gh-pages-history/history
+            cp -r target/site/allure-maven-plugin/history/* gh-pages-history/history/
+            cd gh-pages-history
+            git config user.email "action@github.com"
+            git config user.name "GitHub Action"
+            git add history/
+            git diff-index --quiet HEAD || git commit -m "Update Allure history" && git push origin gh-pages
+          fi
+
+      - name: 9. Simpan Raw Allure Results sebagai Artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
