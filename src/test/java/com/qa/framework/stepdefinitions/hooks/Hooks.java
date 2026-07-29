@@ -56,7 +56,12 @@ public class Hooks {
 
     @After
     public void tearDownGlobal(Scenario scenario) {
-        SoftAssertManager.assertAll();
+        try {
+            SoftAssertManager.assertAll();
+        } catch (Exception e) {
+            scenario.attach(e.getMessage().getBytes(), "text/plain", "SoftAssert Failures");
+            throw e;
+        }
     }
 
     private void TakeScreenshot(Scenario scenario) {
