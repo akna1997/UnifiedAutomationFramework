@@ -50,10 +50,25 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site/allure-maven-plugin
 
-      - name: 8. Simpan Raw Allure Results sebagai Artifact
-        uses: actions/upload-artifact@v4
+      - name: 8. Simpan Report dan History ke gh-pages
         if: always()
-        with:
-          name: allure-results-raw
-          path: target/allure-results/
-          retention-days: 30
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          RUN_NUM=$(jq 'length' gh-pages-history/history/history.json 2>/dev/null || echo 0)
+          REPORT_DIR="gh-pages-history/reports/${DATE}-run${RUN_NUM}"
+
+          mkdir -p "$REPORT_DIR"
+
+          # Copy seluruh report
+          cp -r target/site/allure-maven-plugin/* "$REPORT_DIR"/
+
+          # Copy history juga
+          if [ -d gh-pages-history/history ]; then
+            cp -r gh-pages-history/history/* target/site/allure-maven-plugin/history/
+          fi
+
+          cd gh-pages-history
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Add report ${DATE}-run${RUN_NUM}" && git push origin gh-pages
