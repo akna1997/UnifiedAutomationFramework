@@ -52,13 +52,18 @@ jobs:
           SKIPPED=0
           TOTAL=0
           
-          # Baca trend terbaru dari history-trend.json
-          if [ -f gh-pages-history/history/history-trend.json ]; then
-            LAST=$(jq '.[-1].data' gh-pages-history/history/history-trend.json)
-            PASSED=$(echo "$LAST" | jq '.passed // 0')
-            FAILED=$(echo "$LAST" | jq '.failed // 0')
-            BROKEN=$(echo "$LAST" | jq '.broken // 0')
-            SKIPPED=$(echo "$LAST" | jq '.skipped // 0')
+          if [ -d target/allure-results ]; then
+            # Hitung file dengan status passed/failed/broken/skipped
+            for f in target/allure-results/*-result.json; do
+              [ -f "$f" ] || continue
+              STATUS=$(jq -r '.status // "unknown"' "$f" 2>/dev/null)
+              case "$STATUS" in
+                passed) PASSED=$((PASSED + 1)) ;;
+                failed) FAILED=$((FAILED + 1)) ;;
+                broken) BROKEN=$((BROKEN + 1)) ;;
+                skipped) SKIPPED=$((SKIPPED + 1)) ;;
+              esac
+            done
             TOTAL=$((PASSED + FAILED + BROKEN + SKIPPED))
           fi
           
