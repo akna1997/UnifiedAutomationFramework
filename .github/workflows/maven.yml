@@ -39,6 +39,36 @@ jobs:
       - name: 5. Jalankan Pengujian (Web Headless + API)
         run: mvn test -Dplatform=Web -Dheadless=true
 
+      - name: 5b. Quality Gate - Pass Rate Check
+        if: always()
+        run: |
+          PASSED=$(find target/allure-results -name "*.json" -exec grep -l '"status":"passed"' {} \; 2>/dev/null | wc -l)
+          FAILED=$(find target/allure-results -name "*.json" -exec grep -l '"status":"failed"' {} \; 2>/dev/null | wc -l)
+          BROKEN=$(find target/allure-results -name "*.json" -exec grep -l '"status":"broken"' {} \; 2>/dev/null | wc -l)
+          SKIPPED=$(find target/allure-results -name "*.json" -exec grep -l '"status":"skipped"' {} \; 2>/dev/null | wc -l)
+          TOTAL=$((PASSED + FAILED + BROKEN + SKIPPED))
+          
+          echo "=== Quality Gate Results ==="
+          echo "Passed:  $PASSED"
+          echo "Failed:  $FAILED"
+          echo "Broken:  $BROKEN"
+          echo "Skipped: $SKIPPED"
+          echo "Total:   $TOTAL"
+          
+          if [ "$TOTAL" -gt 0 ]; then
+            RATE=$((PASSED * 100 / TOTAL))
+            echo "Pass Rate: ${RATE}%"
+            
+            if [ "$RATE" -lt 100 ]; then
+              echo "::error::Quality Gate FAILED: Pass rate ${RATE}% is below threshold 100%"
+              exit 1
+            fi
+            
+            echo "::notice::Quality Gate PASSED: Pass rate ${RATE}% meets threshold"
+          else
+            echo "::warning::No test results found"
+          fi
+
       - name: 6. Generate Allure Static Report (dengan history)
         if: always()
         run: mvn allure:report
