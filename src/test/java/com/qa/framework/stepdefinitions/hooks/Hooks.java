@@ -30,7 +30,7 @@ public class Hooks {
         DriverManager.initializeDriver(System.getProperty("platform"));
     }
 
-    @After("@Web")
+    @After(value = "@Web", order = 1)
     public void tearDownWeb(Scenario scenario) {
         System.out.println("------------------------------------------------------------");
         System.out.println("END SCENARIO (WEB): " + scenario.getStatus());
@@ -42,7 +42,7 @@ public class Hooks {
         System.out.println("------------------------------------------------------------");
     }
 
-    @After("@Mobile")
+    @After(value = "@Mobile", order = 1)
     public void tearDownMobile(Scenario scenario) {
         System.out.println("------------------------------------------------------------");
         System.out.println("END SCENARIO (MOBILE): " + scenario.getStatus());
@@ -54,7 +54,7 @@ public class Hooks {
         System.out.println("------------------------------------------------------------");
     }
 
-    @After
+    @After(order = 0)
     public void tearDownGlobal(Scenario scenario) {
         try {
             SoftAssertManager.assertAll();
