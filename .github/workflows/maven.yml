@@ -39,7 +39,11 @@ jobs:
       - name: 5. Jalankan Pengujian (Web Headless + API)
         run: mvn test -Dplatform=Web -Dheadless=true
 
-      - name: 5b. Quality Gate - Pass Rate Check
+      - name: 6. Generate Allure Static Report (dengan history)
+        if: always()
+        run: mvn allure:report
+
+      - name: 6b. Quality Gate - Pass Rate Check
         if: always()
         run: |
           PASSED=0
@@ -76,10 +80,6 @@ jobs:
             
             echo "::notice::Quality Gate PASSED: Pass rate ${RATE}%"
           fi
-
-      - name: 6. Generate Allure Static Report (dengan history)
-        if: always()
-        run: mvn allure:report
 
       - name: 7. Simpan Report dan History ke gh-pages
         if: always()
