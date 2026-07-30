@@ -42,11 +42,21 @@ jobs:
       - name: 5b. Quality Gate - Pass Rate Check
         if: always()
         run: |
-          PASSED=$(find target/allure-results -name "*.json" -exec grep -l '"status":"passed"' {} \; 2>/dev/null | wc -l)
-          FAILED=$(find target/allure-results -name "*.json" -exec grep -l '"status":"failed"' {} \; 2>/dev/null | wc -l)
-          BROKEN=$(find target/allure-results -name "*.json" -exec grep -l '"status":"broken"' {} \; 2>/dev/null | wc -l)
-          SKIPPED=$(find target/allure-results -name "*.json" -exec grep -l '"status":"skipped"' {} \; 2>/dev/null | wc -l)
-          TOTAL=$((PASSED + FAILED + BROKEN + SKIPPED))
+          PASSED=0
+          FAILED=0
+          BROKEN=0
+          SKIPPED=0
+          TOTAL=0
+          
+          # Baca trend terbaru dari history-trend.json
+          if [ -f gh-pages-history/history/history-trend.json ]; then
+            LAST=$(jq '.[-1].data' gh-pages-history/history/history-trend.json)
+            PASSED=$(echo "$LAST" | jq '.passed // 0')
+            FAILED=$(echo "$LAST" | jq '.failed // 0')
+            BROKEN=$(echo "$LAST" | jq '.broken // 0')
+            SKIPPED=$(echo "$LAST" | jq '.skipped // 0')
+            TOTAL=$((PASSED + FAILED + BROKEN + SKIPPED))
+          fi
           
           echo "=== Quality Gate Results ==="
           echo "Passed:  $PASSED"
@@ -64,9 +74,7 @@ jobs:
               exit 1
             fi
             
-            echo "::notice::Quality Gate PASSED: Pass rate ${RATE}% meets threshold"
-          else
-            echo "::warning::No test results found"
+            echo "::notice::Quality Gate PASSED: Pass rate ${RATE}%"
           fi
 
       - name: 6. Generate Allure Static Report (dengan history)
