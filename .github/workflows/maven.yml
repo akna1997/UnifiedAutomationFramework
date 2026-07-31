@@ -105,7 +105,7 @@ jobs:
           git config user.name "GitHub Action"
           git add .
           git diff-index --quiet HEAD || git commit -m "Add report ${DATE}-${{ github.run_id }}" && git push origin gh-pages
-          echo "https://akna1997.github.io/UnifiedAutomationFramework/reports/${DATE}-${{ github.run_id }}"
+          echo "::notice::https://akna1997.github.io/UnifiedAutomationFramework/reports/${DATE}-${{ github.run_id }}"
 
       - name: 8. Simpan Raw Allure Results sebagai Artifact
         uses: actions/upload-artifact@v4
