@@ -32,5 +32,6 @@ public class WebSteps {
     @Then("searchbox harus terisi dengan text {string}")
     public void searchbox_harus_terisi_dengan_text(String namaBarang) {
         SoftAssertManager.get().assertTrue(hompage.searchBoxText(namaBarang), "sudah mantap");
+        SoftAssertManager.assertAll();
     }
 }

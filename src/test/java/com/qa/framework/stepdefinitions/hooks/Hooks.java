@@ -6,7 +6,6 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import com.qa.framework.utils.SoftAssertManager;
 
 public class Hooks {
 
@@ -30,7 +29,7 @@ public class Hooks {
         DriverManager.initializeDriver(System.getProperty("platform"));
     }
 
-    @After(value = "@Web", order = 1)
+    @After(value = "@Web")
     public void tearDownWeb(Scenario scenario) {
         System.out.println("------------------------------------------------------------");
         System.out.println("END SCENARIO (WEB): " + scenario.getStatus());
@@ -42,7 +41,7 @@ public class Hooks {
         System.out.println("------------------------------------------------------------");
     }
 
-    @After(value = "@Mobile", order = 1)
+    @After(value = "@Mobile")
     public void tearDownMobile(Scenario scenario) {
         System.out.println("------------------------------------------------------------");
         System.out.println("END SCENARIO (MOBILE): " + scenario.getStatus());
@@ -52,16 +51,6 @@ public class Hooks {
         System.out.println("End Appium Mobile Session...");
         DriverManager.quitDriver();
         System.out.println("------------------------------------------------------------");
-    }
-
-    @After(order = 0)
-    public void tearDownGlobal(Scenario scenario) {
-        try {
-            SoftAssertManager.assertAll();
-        } catch (Exception e) {
-            scenario.attach(e.getMessage().getBytes(), "text/plain", "SoftAssert Failures");
-            throw e;
-        }
     }
 
     private void TakeScreenshot(Scenario scenario) {
