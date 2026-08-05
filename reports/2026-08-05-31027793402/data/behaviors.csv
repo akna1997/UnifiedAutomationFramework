@@ -1,0 +1,8 @@
+"Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
+"","Melihat Detail Produk di Halaman PDP Tokopedia","TC-01 s/d TC-05 Elemen inti PDP tampil","0","0","2","0","0"
+"","Pencarian Barang Software di E-Commerce","User mencari Windows 11","0","0","1","0","0"
+"","API Add Barang E-Commerce","Sukses menambahkan produk hardware baru ke dalam sistem","0","0","1","0","0"
+"","Melihat Detail Produk di Halaman PDP Tokopedia","TC-06 Nama dan harga tetap tampil setelah klik thumbnail","0","0","1","0","0"
+"","API Pencarian Barang E-Commerce","Sukses mencari produk spesifik via API","0","0","1","0","0"
+"","Pencarian Barang Hardware di E-Commerce","Pengguna mencari komponen peralatan rumah tangga","0","0","1","0","0"
+"","Mobile Pencarian Barang Hardware di E-Commerce","Mobile Pengguna mencari komponen peralatan rumah tangga","0","1","0","0","0"

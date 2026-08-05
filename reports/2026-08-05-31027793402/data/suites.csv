@@ -1,0 +1,15 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Wed Aug 05 16:59:25 UTC 2026","Wed Aug 05 16:59:32 UTC 2026","7239","","Melihat Detail Produk di Halaman PDP Tokopedia","","TC-01 s/d TC-05 Elemen inti PDP tampil","","TC-01 s/d TC-05 Elemen inti PDP tampil","  Sebagai pengguna Tokopedia
+  Saya ingin melihat thumbnail, nama, dan harga produk di halaman detail
+  Agar saya bisa memutuskan pembelian"
+"passed","Wed Aug 05 16:59:45 UTC 2026","Wed Aug 05 16:59:53 UTC 2026","8591","","Pencarian Barang Software di E-Commerce","","User mencari Windows 11","","User mencari Windows 11",""
+"passed","Wed Aug 05 16:58:43 UTC 2026","Wed Aug 05 16:58:45 UTC 2026","1946","","API Add Barang E-Commerce","","Sukses menambahkan produk hardware baru ke dalam sistem","","Sukses menambahkan produk hardware baru ke dalam sistem",""
+"passed","Wed Aug 05 16:59:39 UTC 2026","Wed Aug 05 16:59:45 UTC 2026","6185","","Melihat Detail Produk di Halaman PDP Tokopedia","","TC-06 Nama dan harga tetap tampil setelah klik thumbnail","","TC-06 Nama dan harga tetap tampil setelah klik thumbnail","  Sebagai pengguna Tokopedia
+  Saya ingin melihat thumbnail, nama, dan harga produk di halaman detail
+  Agar saya bisa memutuskan pembelian"
+"passed","Wed Aug 05 16:58:45 UTC 2026","Wed Aug 05 16:58:45 UTC 2026","410","","API Pencarian Barang E-Commerce","","Sukses mencari produk spesifik via API","","Sukses mencari produk spesifik via API",""
+"passed","Wed Aug 05 16:59:32 UTC 2026","Wed Aug 05 16:59:39 UTC 2026","6513","","Melihat Detail Produk di Halaman PDP Tokopedia","","TC-01 s/d TC-05 Elemen inti PDP tampil","","TC-01 s/d TC-05 Elemen inti PDP tampil","  Sebagai pengguna Tokopedia
+  Saya ingin melihat thumbnail, nama, dan harga produk di halaman detail
+  Agar saya bisa memutuskan pembelian"
+"passed","Wed Aug 05 16:59:53 UTC 2026","Wed Aug 05 17:00:01 UTC 2026","7606","","Pencarian Barang Hardware di E-Commerce","","Pengguna mencari komponen peralatan rumah tangga","","Pengguna mencari komponen peralatan rumah tangga",""
+"broken","Wed Aug 05 16:58:45 UTC 2026","Wed Aug 05 16:59:25 UTC 2026","39384","","Mobile Pencarian Barang Hardware di E-Commerce","","Mobile Pengguna mencari komponen peralatan rumah tangga","","Mobile Pengguna mencari komponen peralatan rumah tangga",""
