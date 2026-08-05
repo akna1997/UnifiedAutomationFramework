@@ -196,11 +196,15 @@ Catatan Parameter:
 
 -Dheadless: Mengatur apakah browser ingin ditampilkan (false) atau disembunyikan (true).
 
- Contoh untuk platform lain :
+-Dtest: Menentukan runner mana yang mau di run
 
-      mvn clean test -Dplatform="Android" -Dcucumber.filter.tags="@Mobile"
-      mvn clean test -Dplatform="iOS" -Dcucumber.filter.tags="@Mobile"
-      mvn clean test -Dcucumber.filter.tags="@Api"
+ Contoh command untuk run :
+
+        run api & web barengan : mvn clean test -Dplatform=Web -Dheadless=true
+        run web only : mvn clean test -Dplatform=Web -Dheadless=true -Dtest=WebRunner
+        run api only : mvn clean test -Dheadless=true -Dtest=ApiRunner
+        run mobile only : mvn clean test -Dplatform=Android -Dheadless=true -Dtest=WebMobile
+        run per folder team = mvn clean test -Dplatform=Web -Dheadless=true -Dtest=WebRunner -Dcucumber.filter.tags=@HomeTeam
 
 ## LANGKAH 6: MELIHAT LAPORAN HASIL TES
 

@@ -26,7 +26,7 @@ public class TokopediaHomePage extends BasePage {
     }
 
     public boolean searchBoxText(String textNamaBarang) {
-        String searchboxText = elements.kolomPencarian.getAttribute("value");
+        String searchboxText = getAttribute(elements.kolomPencarian, "value");
         return Objects.equals(searchboxText ,textNamaBarang);
     }
 }
