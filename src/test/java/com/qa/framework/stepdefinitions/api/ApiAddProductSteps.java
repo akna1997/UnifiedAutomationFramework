@@ -1,15 +1,14 @@
 package com.qa.framework.stepdefinitions.api;
 
-import com.qa.framework.utils.ConfigReader;
+import com.qa.framework.clients.ApiClient;
+import com.qa.framework.utils.TestContext;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
-import java.nio.file.Paths;
-import java.nio.file.Files;
+import java.io.InputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,22 +19,26 @@ public class ApiAddProductSteps
     private String endpoint;
     private String payloadJSON;
     private static final Logger log = LoggerFactory.getLogger(ApiSteps.class);
+    private final TestContext context;
+    private final ApiClient client;
+
+    public ApiAddProductSteps(TestContext context, ApiClient client) {
+        this.context = context;
+        this.client = client;
+    }
 
     @Given("user mengatur base URL untuk tambah produk")
     public void userMengaturBaseUrlTambahProduk() {
-        RestAssured.baseURI = ConfigReader.getProperty("api.base.url");
         endpoint = "/products/add";
     }
 
     @When("user mengirim POST request dengan data barang baru")
     public void userMengirimPostRequestDenganData() throws Exception {
-         payloadJSON = new String(Files.readAllBytes(Paths.get("src/test/resources/testdata/api_product.json")));
+        InputStream is = getClass().getClassLoader().getResourceAsStream("testdata/api_product.json");
+        payloadJSON = new String(is.readAllBytes());
 
-        response = given()
-                .header("Content-Type", "application/json")
-                .body(payloadJSON)
-                .when()
-                .post(endpoint);
+        response = client.post(endpoint, payloadJSON);
+        context.set("addProductResponse", response);
     }
 
     @Then("status code API ADD harus {int}")

@@ -58,7 +58,7 @@ public class Hooks {
             try {
                 byte[] screenshot = ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
                 scenario.attach(screenshot, "image/png", "Screenshot_" + scenario.getName());
-                System.out.println("Screenshot succeeded added inside the report report!");
+                System.out.println("Screenshot succeeded added inside the report!");
             } catch (Exception e) {
                 System.err.println("Failed to take screenshot: " + e.getMessage());
             }

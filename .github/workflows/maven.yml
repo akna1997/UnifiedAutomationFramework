@@ -37,7 +37,7 @@ jobs:
           fi
 
       - name: 5. Jalankan Pengujian (Web Headless + API)
-        run: mvn test -Dplatform=Web -Dheadless=true
+        run: mvn test -Dplatform=Web -Dheadless=true -Dcucumber.filter.tags="not @ai-test"
 
       - name: 6. Generate Allure Static Report (dengan history)
         if: always()

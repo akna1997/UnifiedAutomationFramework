@@ -10,10 +10,15 @@ import org.json.JSONObject;
 
 public class GeminiAIUtil {
 
-    private static final String API_KEY = ConfigReader.getProperty("gemini.api.keys");
-    private static final String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=" + API_KEY;
-
     public static String askGemini(String prompt) {
+
+        String API_KEY = ConfigReader.getProperty("gemini.api.keys");
+        if (API_KEY == null || API_KEY.trim().isEmpty()) {
+            System.err.println("Have gemini empty key — skip call.");
+            return null;
+        }
+        String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=" + API_KEY;
+
         try {
             // Create json request
             JSONObject part = new JSONObject();

@@ -1,12 +1,10 @@
 package com.qa.framework.stepdefinitions.api;
 
-import com.qa.framework.utils.ConfigReader;
+import com.qa.framework.clients.ApiClient;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,20 +14,16 @@ public class ApiSteps {
     private Response response;
     private String endpoint;
     private static final Logger log = LoggerFactory.getLogger(ApiSteps.class);
+    private ApiClient client = new ApiClient();
 
     @Given("user mengatur endpoint API pencarian")
     public void userMengaturEndpointApi() {
-        RestAssured.baseURI = ConfigReader.getProperty("api.base.url");
         endpoint = "/products/search";
     }
 
     @When("user mengirim GET request dengan kata kunci {string}")
     public void userMengirimGetRequest(String keyword) {
-        response = given()
-                .queryParam("q", keyword)
-                .header("Accept", "application/json")
-                .when()
-                .get(endpoint);
+        response = client.get(endpoint);
     }
 
     @Then("status code API Read harus {int}")

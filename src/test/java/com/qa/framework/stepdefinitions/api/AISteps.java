@@ -35,7 +35,7 @@ public class AISteps {
 
     @Then("Gemini harus menjawab {string}")
     public void geminiHarusMenjawab(String expectedVerdict) {
-        if (this.geminiVerdict != null) {
+        if (this.geminiVerdict == null) {
             throw new SkipException("Please check Credit or token AI");
         }
 
