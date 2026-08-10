@@ -37,7 +37,7 @@ jobs:
           fi
 
       - name: 5. Jalankan Pengujian (Web Headless + API)
-        run: mvn test -Dplatform=Web -Dheadless=true"
+        run: mvn test -Dplatform=Web -Dheadless=true
 
       - name: 6. Generate Allure Static Report (dengan history)
         if: always()
@@ -132,9 +132,13 @@ jobs:
 
       - name: 4. Download SDK + Buat AVD
         run: |
+          export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
+          export ANDROID_AVD_HOME=$HOME/.android/avd
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0" "system-images;android-34;google_apis;x86_64"
           echo "y" | sdkmanager --licenses
-          echo "no" | avdmanager create avd -n test_avd -k "system-images;android-34;google_apis;x86_64" --device "pixel_5"
+          echo "no" | avdmanager create avd -n test_avd -k "system-images;android-34;google_apis;x86_64" --device "pixel_5" --force
+          echo "=== CEK AVD KEBENTUK? ==="
+          $ANDROID_HOME/emulator/emulator -list-avds
 
       - name: 5. Install Appium + uiautomator2
         run: |
