@@ -166,6 +166,7 @@ jobs:
             appium &
             until curl -s http://127.0.0.1:4723/status; do sleep 3; done
             mvn test -Dplatform=Android -Dtest=MobileRunner
+            fuser -k 4723/tcp || true
 
       - name: 7. Generate Allure Report
         if: always()
