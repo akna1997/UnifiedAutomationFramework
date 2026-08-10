@@ -14,19 +14,7 @@ public class ApiDemosAppPageMobile extends BasePage {
     }
 
     public void clickMenu(String menuType) {
-        switch (menuType) {
-            case "App":
-                click(elements.buttonMenuApp);
-                break;
-            case "Activity":
-                click(elements.buttonMenuActivity);
-                break;
-            case "Hello World":
-                click(elements.buttonMenuHW);
-                break;
-            default:
-                break;
-        }
+        click(dynamicElement(elements.field("buttonMenu"), menuType));
     }
 
     public String getTextApiDemos() {

@@ -18,14 +18,13 @@ import java.time.Duration;
 import java.util.Objects;
 
 public class BasePage extends UtilBasePage {
-    protected WebDriver driver;
     protected WebDriverWait wait;
     protected static final Logger log = LoggerFactory.getLogger(BasePage.class);
     String platform = ConfigReader.getProperty("platform").toLowerCase();
 
     public BasePage(WebDriver driver) {
+        super(driver);
         long waitSeconds = Long.parseLong(ConfigReader.getProperty("timeout"));
-        this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(waitSeconds));
     }
 
