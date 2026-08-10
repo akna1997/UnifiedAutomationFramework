@@ -1,0 +1,14 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Mon Aug 10 07:36:41 UTC 2026","Mon Aug 10 07:36:47 UTC 2026","5657","","Pencarian Barang Software di E-Commerce","","User mencari Windows 11","","User mencari Windows 11",""
+"passed","Mon Aug 10 07:36:27 UTC 2026","Mon Aug 10 07:36:27 UTC 2026","407","","API Pencarian Barang E-Commerce","","Sukses mencari produk spesifik via API","","Sukses mencari produk spesifik via API",""
+"passed","Mon Aug 10 07:36:47 UTC 2026","Mon Aug 10 07:36:53 UTC 2026","6046","","Pencarian Barang Hardware di E-Commerce","","Pengguna mencari komponen peralatan rumah tangga","","Pengguna mencari komponen peralatan rumah tangga",""
+"passed","Mon Aug 10 07:36:25 UTC 2026","Mon Aug 10 07:36:34 UTC 2026","9199","","Melihat Detail Produk di Halaman PDP Tokopedia","","TC-01 s/d TC-05 Elemen inti PDP tampil","","TC-01 s/d TC-05 Elemen inti PDP tampil","  Sebagai pengguna Tokopedia
+  Saya ingin melihat thumbnail, nama, dan harga produk di halaman detail
+  Agar saya bisa memutuskan pembelian"
+"passed","Mon Aug 10 07:36:25 UTC 2026","Mon Aug 10 07:36:27 UTC 2026","2093","","API Add Barang E-Commerce","","Sukses menambahkan produk hardware baru ke dalam sistem","","Sukses menambahkan produk hardware baru ke dalam sistem",""
+"passed","Mon Aug 10 07:36:37 UTC 2026","Mon Aug 10 07:36:41 UTC 2026","3584","","Melihat Detail Produk di Halaman PDP Tokopedia","","TC-06 Nama dan harga tetap tampil setelah klik thumbnail","","TC-06 Nama dan harga tetap tampil setelah klik thumbnail","  Sebagai pengguna Tokopedia
+  Saya ingin melihat thumbnail, nama, dan harga produk di halaman detail
+  Agar saya bisa memutuskan pembelian"
+"passed","Mon Aug 10 07:36:34 UTC 2026","Mon Aug 10 07:36:37 UTC 2026","3162","","Melihat Detail Produk di Halaman PDP Tokopedia","","TC-01 s/d TC-05 Elemen inti PDP tampil","","TC-01 s/d TC-05 Elemen inti PDP tampil","  Sebagai pengguna Tokopedia
+  Saya ingin melihat thumbnail, nama, dan harga produk di halaman detail
+  Agar saya bisa memutuskan pembelian"
