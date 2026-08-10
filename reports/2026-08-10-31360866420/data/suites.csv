@@ -1,0 +1,3 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Mon Aug 10 06:08:39 UTC 2026","Mon Aug 10 06:08:40 UTC 2026","1682","","API Add Barang E-Commerce","","Sukses menambahkan produk hardware baru ke dalam sistem","","Sukses menambahkan produk hardware baru ke dalam sistem",""
+"passed","Mon Aug 10 06:08:40 UTC 2026","Mon Aug 10 06:08:41 UTC 2026","255","","API Pencarian Barang E-Commerce","","Sukses mencari produk spesifik via API","","Sukses mencari produk spesifik via API",""
