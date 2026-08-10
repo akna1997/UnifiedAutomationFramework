@@ -116,8 +116,10 @@ jobs:
           retention-days: 30
   android:
     runs-on: ubuntu-latest
+    env:
+      ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL: 10
     steps:
-      - name: 1. Ambil Kode
+      - name: 1. Get Latest Code
         uses: actions/checkout@v4
 
       - name: 2. Setup Java 17
@@ -127,12 +129,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: 3. Setup Node (buat Appium)
+      - name: 3. Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: 4. Download ApiDemos APK dari Cloud
+      - name: 4. Download ApiDemos APK from Cloud
         run: curl -L -o ApiDemos-debug.apk "https://github.com/appium/android-apidemos/releases/download/v6.0.15/ApiDemos-debug.apk"
 
       - name: 5. Install Appium + uiautomator2
@@ -146,7 +148,7 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      - name: 6. Run Test di Emulator
+      - name: 6. Run Test on Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30
@@ -164,6 +166,7 @@ jobs:
             appium &
             until curl -s http://127.0.0.1:4723/status; do sleep 3; done
             mvn test -Dplatform=Android -Dtest=MobileRunner
+            pkill -f appium || true
 
       - name: 7. Generate Allure Report
         if: always()
