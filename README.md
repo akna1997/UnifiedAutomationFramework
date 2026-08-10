@@ -132,17 +132,28 @@ Saat menguji aplikasi Android via Appium, kamu wajib mendaftarkan identitas apli
     Buka aplikasi yang ingin kamu uji di HP kamu (Misal: Aplikasi Tokopedia atau Shopee), dan biarkan aplikasi tersebut tetap terbuka di layar depan.
     
     Buka Terminal / Command Prompt di laptop, lalu jalankan salah 1 dari 3 perintah ini:
-    ```bash
-    adb shell dumpsys activity activities | grep mResumedActivity
-    adb shell dumpsys activity activities | findstr mResumedActivity
-    adb shell dumpsys window | grep -E 'mCurrentFocus'
-Hasil yang Muncul: Terminal akan memunculkan sebaris teks panjang. Perhatikan bagian yang menyerupai pola berikut (hanya contoh):
 
-    mResumedActivity: ActivityRecord{... u0 com.tokopedia.tkpd/com.tokopedia.homeHomeActivity t12}
+        adb shell dumpsys activity activities | grep mResumedActivity
+        adb shell dumpsys activity activities | findstr mResumedActivity
+        adb shell dumpsys window | grep -E 'mCurrentFocus'
 
-appPackage Anda adalah teks sebelum tanda garis miring (/), yaitu: com.tokopedia.tkpd
+    Hasil yang Muncul: Terminal akan memunculkan sebaris teks panjang. Perhatikan bagian yang menyerupai pola berikut (hanya contoh):
 
-appActivity Anda adalah teks setelah tanda garis miring (/), yaitu: com.tokopedia.home.HomeActivity
+        mResumedActivity: ActivityRecord{... u0 com.tokopedia.tkpd/com.tokopedia.homeHomeActivity t12}
+
+    appPackage Anda adalah teks sebelum tanda garis miring (/), yaitu: com.tokopedia.tkpd
+
+    appActivity Anda adalah teks setelah tanda garis miring (/), yaitu: com.tokopedia.home.HomeActivity
+
+2. Untuk ios kalau mau get bundleid untuk installed app bisa pake command ini ya
+
+        xcrun simctl listapps "iPhone 17 Pro" booted
+
+    "CFBundleIdentifier" = bundle id (misal "com.apple.mobilecal" untuk Calendar)
+
+    Kalau mau cari udid real ios device bisa pake command ini
+
+        xcrun xctrace list devices
 
 *PS : kita juga butuh DeviceName, PlatformName, dan automation name, dan akan jadi seperti ini (berguna untuk appium inspector) :
 
@@ -203,7 +214,7 @@ Catatan Parameter:
         run api & web barengan : mvn clean test -Dplatform=Web -Dheadless=true
         run web only : mvn clean test -Dplatform=Web -Dheadless=true -Dtest=WebRunner
         run api only : mvn clean test -Dheadless=true -Dtest=ApiRunner
-        run mobile only : mvn clean test -Dplatform=Android -Dheadless=true -Dtest=WebMobile
+        run mobile only : mvn clean test -Dplatform=Android -Dtest=MobileRunner
         run per folder team = mvn clean test -Dplatform=Web -Dheadless=true -Dtest=WebRunner -Dcucumber.filter.tags=@HomeTeam
 
 ## LANGKAH 6: MELIHAT LAPORAN HASIL TES

@@ -2,6 +2,8 @@ package com.qa.framework.utils;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
+import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.ios.options.XCUITestOptions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,6 +12,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
 
@@ -57,18 +60,18 @@ public class DriverManager {
                     throw new IllegalArgumentException("Browser not supported: " + browserName);
             }
         } else {
-            switch (platform) {
+            switch (platform.toLowerCase()) {
                 case "android":
                     try {
                         UiAutomator2Options options = new UiAutomator2Options();
 
-                        String udid = ConfigReader.getProperty("android.udid");
-                        if (!udid.isEmpty()) {
-                            options.setUdid(udid);
-                        }
-
-                        // options.setDeviceName(ConfigReader.getProperty("android.device.name"));
-                        // options.setApp(System.getProperty("user.dir") + "/" + ConfigReader.getProperty("android.app.path"));
+                        String androidUdid = !ConfigReader.getProperty("android.udid").isEmpty() ? ConfigReader.getProperty("android.udid") : "";
+                        String androidDeviceName = !ConfigReader.getProperty("android.device.name").isEmpty() ? ConfigReader.getProperty("android.device.name") : "";
+                        String androidAppPath = !ConfigReader.getProperty("android.app.path").isEmpty() ? System.getProperty("user.dir") + "/" + ConfigReader.getProperty("android.app.path") : "";
+                        
+                        options.setUdid(androidUdid);
+                        options.setDeviceName(androidDeviceName);
+                        options.setApp(androidAppPath);
                         options.setAutomationName(ConfigReader.getProperty("android.automation.name"));
                         options.setAutoGrantPermissions(true);
                         options.setNewCommandTimeout(Duration.ofSeconds(60));
@@ -76,8 +79,7 @@ public class DriverManager {
                         options.setAppPackage(ConfigReader.getProperty("android.appPackage"));
                         options.setAppActivity(ConfigReader.getProperty("android.appActivity"));
 
-                        URL appiumUrl = new URL(ConfigReader.getProperty("appium.server.url"));
-
+                        URL appiumUrl = URI.create(ConfigReader.getProperty("appium.server.url")).toURL();
                         driver.set(new AndroidDriver(appiumUrl, options));
                     } catch (Exception e) {
                         log.error("ERROR: Failed connect to Appium Server!");
@@ -87,7 +89,40 @@ public class DriverManager {
                     break;
 
                 case "ios":
-                    System.out.println("for initialized ios driver");
+                    try {
+                        XCUITestOptions options = new XCUITestOptions();
+                        
+                        String iosApp = ConfigReader.getProperty("ios.app.path");
+                        String iosBundleId = ConfigReader.getProperty("ios.bundleId");
+                        String iosUdid = ConfigReader.getProperty("ios.udid");
+
+                        if (iosUdid != null && !iosUdid.isEmpty()) {
+                            options.setUdid(iosUdid);
+                        } else {
+                            options.setDeviceName(ConfigReader.getProperty("ios.device.name"));
+                        }
+
+                        if (iosApp != null && !iosApp.isEmpty()) {
+                            options.setApp(System.getProperty("user.dir") + "/" + iosApp);
+                        }
+
+                        if (iosBundleId != null && !iosBundleId.isEmpty()) {
+                            options.setBundleId(iosBundleId);
+                        }
+
+                        options.setAutomationName(ConfigReader.getProperty("ios.automation.name"));
+                        options.setNewCommandTimeout(Duration.ofSeconds(60));
+                        options.setAutoAcceptAlerts(true);
+                        options.setNoReset(false);
+
+                        URL appiumUrl = URI.create(ConfigReader.getProperty("appium.server.url")).toURL();
+                        driver.set(new IOSDriver(appiumUrl, options));
+
+                    } catch (Exception e) {
+                        log.error("ERROR : Failed connect to Appium Server for iOS");
+                        e.printStackTrace();
+                        throw new RuntimeException("iOS Initialization failed.");
+                    }
                     break;
 
                 default:

@@ -21,7 +21,7 @@ public class BasePage extends UtilBasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
     protected static final Logger log = LoggerFactory.getLogger(BasePage.class);
-    String platform = com.qa.framework.utils.ConfigReader.getProperty("platform").toLowerCase();
+    String platform = ConfigReader.getProperty("platform").toLowerCase();
 
     public BasePage(WebDriver driver) {
         long waitSeconds = Long.parseLong(ConfigReader.getProperty("timeout"));
@@ -117,9 +117,22 @@ public class BasePage extends UtilBasePage {
         return attrValueWrapper[0];
     }
 
+    protected String getText(WebElement element) {
+        String[] textResult = new String[]{"initial"};
+        Objects.requireNonNull(element, "Element cannot be null while getting its attribute");
+        log.info("Get text from element: {}", describe(element));
+
+        wait.until(ExpectedConditions.visibilityOf(element));
+        safeRetry("Get Text", element, () -> {
+            textResult[0] = element.getText();
+        });
+
+        return textResult[0];
+    }
+
 //    protected void executeSearch() {
 //        if (platform.equals("android")) {
-//            System.out.println("Memaksa Android melakukan IME Action SEARCH...");
+//            System.out.println("");
 //
 //            Map<String, Object> actionArgs = new HashMap<>();
 //            actionArgs.put("action", "search");

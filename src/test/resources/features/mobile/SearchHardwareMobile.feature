@@ -1,7 +1,9 @@
-Feature: Mobile Pencarian Barang Hardware di E-Commerce
+Feature: Mobile Api Demos Feature App
 
   @Mobile
-  Scenario: Mobile Pengguna mencari komponen peralatan rumah tangga
-    Given Mobile pengguna membuka halaman utama "Tokopedia"
-    When Mobile pengguna mencari barang "housing filter air 10 inch"
-    Then Mobile sistem harus menampilkan daftar produk yang relevan
+  Scenario: Mobile user bisa click dan melihat menu HalloWorld
+    Given Mobile user membuka halaman utama "ApiDemos"
+    When Mobile user click menu "App"
+    And Mobile user click menu "Activity"
+    And Mobile user click menu "Hello World"
+    Then Mobile sistem harus menampilkan text "Hello, World!"
