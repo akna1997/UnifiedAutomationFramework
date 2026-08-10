@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="UAF-Parallel" parallel="tests" thread-count="2" verbose="2">
-    <test name="Web Tests">
+<suite name="UAF-Parallel" parallel="tests" thread-count="5" verbose="2">
+    <!-- <test name="Web Tests">
         <classes><class name="com.qa.framework.runners.WebRunner"/></classes>
-    </test>
+    </test> -->
     <test name="Api Tests">
         <classes><class name="com.qa.framework.runners.ApiRunner"/></classes>
+    </test>
+    <test name="Web HomeTeam">
+        <classes><class name="com.qa.framework.runners.teamrunner.WebHomeTeamRunner"/></classes>
+    </test>
+    <test name="Web SearchTeam">
+        <classes><class name="com.qa.framework.runners.teamrunner.WebSearchTeamRunner"/></classes>
     </test>
 </suite>

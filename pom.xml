@@ -18,6 +18,8 @@
         <allure.version>2.24.0</allure.version>
         <jacksondatabind.version>2.16.1</jacksondatabind.version>
         <hamcrest.version>2.2</hamcrest.version>
+        <slf4j.version>2.0.16</slf4j.version>
+        <log4j.version>2.23.1</log4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <platform>Web</platform>
         <headless>false</headless>
@@ -90,12 +92,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-cucumber7-jvm</artifactId>
             <version>${allure.version}</version>
@@ -112,8 +108,13 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
-            <version>2.23.1</version>
+            <version>${log4j.version}</version>
         </dependency>
+        <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+          <version>${slf4j.version}</version>
+      </dependency>
     </dependencies>
 
     <build>

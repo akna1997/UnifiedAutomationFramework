@@ -36,7 +36,7 @@ jobs:
             cp -r gh-pages-history/history target/allure-results/
           fi
 
-      - name: 5. Run Test (Web Headless + API)
+      - name: 5. Jalankan Pengujian (Web Headless + API)
         run: mvn test -Dplatform=Web -Dheadless=true
 
       - name: 6. Generate Allure Static Report (with history)
