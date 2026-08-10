@@ -1,0 +1,15 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Mon Aug 10 05:11:12 UTC 2026","Mon Aug 10 05:11:18 UTC 2026","6484","","Melihat Detail Produk di Halaman PDP Tokopedia","","TC-01 s/d TC-05 Elemen inti PDP tampil","","TC-01 s/d TC-05 Elemen inti PDP tampil","  Sebagai pengguna Tokopedia
+  Saya ingin melihat thumbnail, nama, dan harga produk di halaman detail
+  Agar saya bisa memutuskan pembelian"
+"passed","Mon Aug 10 05:11:04 UTC 2026","Mon Aug 10 05:11:12 UTC 2026","7910","","Melihat Detail Produk di Halaman PDP Tokopedia","","TC-01 s/d TC-05 Elemen inti PDP tampil","","TC-01 s/d TC-05 Elemen inti PDP tampil","  Sebagai pengguna Tokopedia
+  Saya ingin melihat thumbnail, nama, dan harga produk di halaman detail
+  Agar saya bisa memutuskan pembelian"
+"passed","Mon Aug 10 05:11:33 UTC 2026","Mon Aug 10 05:11:40 UTC 2026","7446","","Pencarian Barang Hardware di E-Commerce","","Pengguna mencari komponen peralatan rumah tangga","","Pengguna mencari komponen peralatan rumah tangga",""
+"passed","Mon Aug 10 05:11:25 UTC 2026","Mon Aug 10 05:11:33 UTC 2026","7799","","Pencarian Barang Software di E-Commerce","","User mencari Windows 11","","User mencari Windows 11",""
+"passed","Mon Aug 10 05:10:31 UTC 2026","Mon Aug 10 05:10:32 UTC 2026","433","","API Pencarian Barang E-Commerce","","Sukses mencari produk spesifik via API","","Sukses mencari produk spesifik via API",""
+"passed","Mon Aug 10 05:11:18 UTC 2026","Mon Aug 10 05:11:25 UTC 2026","6368","","Melihat Detail Produk di Halaman PDP Tokopedia","","TC-06 Nama dan harga tetap tampil setelah klik thumbnail","","TC-06 Nama dan harga tetap tampil setelah klik thumbnail","  Sebagai pengguna Tokopedia
+  Saya ingin melihat thumbnail, nama, dan harga produk di halaman detail
+  Agar saya bisa memutuskan pembelian"
+"broken","Mon Aug 10 05:10:32 UTC 2026","Mon Aug 10 05:11:04 UTC 2026","32084","","Mobile Api Demos Feature App","","Mobile user bisa click dan melihat menu HalloWorld","","Mobile user bisa click dan melihat menu HalloWorld",""
+"passed","Mon Aug 10 05:10:29 UTC 2026","Mon Aug 10 05:10:31 UTC 2026","1955","","API Add Barang E-Commerce","","Sukses menambahkan produk hardware baru ke dalam sistem","","Sukses menambahkan produk hardware baru ke dalam sistem",""
