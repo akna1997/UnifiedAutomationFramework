@@ -1,0 +1,14 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Mon Aug 10 05:48:04 UTC 2026","Mon Aug 10 05:48:07 UTC 2026","3168","","Melihat Detail Produk di Halaman PDP Tokopedia","","TC-01 s/d TC-05 Elemen inti PDP tampil","","TC-01 s/d TC-05 Elemen inti PDP tampil","  Sebagai pengguna Tokopedia
+  Saya ingin melihat thumbnail, nama, dan harga produk di halaman detail
+  Agar saya bisa memutuskan pembelian"
+"passed","Mon Aug 10 05:47:56 UTC 2026","Mon Aug 10 05:47:56 UTC 2026","367","","API Pencarian Barang E-Commerce","","Sukses mencari produk spesifik via API","","Sukses mencari produk spesifik via API",""
+"passed","Mon Aug 10 05:48:07 UTC 2026","Mon Aug 10 05:48:10 UTC 2026","2904","","Melihat Detail Produk di Halaman PDP Tokopedia","","TC-06 Nama dan harga tetap tampil setelah klik thumbnail","","TC-06 Nama dan harga tetap tampil setelah klik thumbnail","  Sebagai pengguna Tokopedia
+  Saya ingin melihat thumbnail, nama, dan harga produk di halaman detail
+  Agar saya bisa memutuskan pembelian"
+"passed","Mon Aug 10 05:47:54 UTC 2026","Mon Aug 10 05:48:04 UTC 2026","9666","","Melihat Detail Produk di Halaman PDP Tokopedia","","TC-01 s/d TC-05 Elemen inti PDP tampil","","TC-01 s/d TC-05 Elemen inti PDP tampil","  Sebagai pengguna Tokopedia
+  Saya ingin melihat thumbnail, nama, dan harga produk di halaman detail
+  Agar saya bisa memutuskan pembelian"
+"passed","Mon Aug 10 05:47:54 UTC 2026","Mon Aug 10 05:47:56 UTC 2026","1570","","API Add Barang E-Commerce","","Sukses menambahkan produk hardware baru ke dalam sistem","","Sukses menambahkan produk hardware baru ke dalam sistem",""
+"passed","Mon Aug 10 05:48:16 UTC 2026","Mon Aug 10 05:48:22 UTC 2026","5572","","Pencarian Barang Hardware di E-Commerce","","Pengguna mencari komponen peralatan rumah tangga","","Pengguna mencari komponen peralatan rumah tangga",""
+"passed","Mon Aug 10 05:48:10 UTC 2026","Mon Aug 10 05:48:16 UTC 2026","5867","","Pencarian Barang Software di E-Commerce","","User mencari Windows 11","","User mencari Windows 11",""
