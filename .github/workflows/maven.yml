@@ -143,16 +143,20 @@ jobs:
       - name: 6. Run Test di Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 34
+          api-level: 30
           target: google_apis
           arch: x86_64
           profile: pixel_5
           force-avd-creation: true
+          disable-animations: true
+          ram-size: 2048
+          heap-size: 512
+          core-count: 2
           emulator-options: -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect
           script: |
             adb install ApiDemos-debug.apk
             appium &
-            sleep 12
+            until curl -s http://127.0.0.1:4723/status; do sleep 3; done
             mvn test -Dplatform=Android -Dtest=MobileRunner
 
       - name: 7. Generate Allure Report
