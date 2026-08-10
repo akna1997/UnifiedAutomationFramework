@@ -1,4 +1,4 @@
-package com.qa.framework.pages.mobile.ApiDemosApp;
+package com.qa.framework.pages.mobile.apidemosapp;
 
 import org.openqa.selenium.WebDriver;
 

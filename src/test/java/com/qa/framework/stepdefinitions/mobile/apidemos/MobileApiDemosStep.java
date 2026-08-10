@@ -1,6 +1,6 @@
 package com.qa.framework.stepdefinitions.mobile.apidemos;
 
-import com.qa.framework.pages.mobile.ApiDemosApp.ApiDemosAppPageMobile;
+import com.qa.framework.pages.mobile.apidemosapp.ApiDemosAppPageMobile;
 import com.qa.framework.utils.DriverManager;
 
 import io.cucumber.java.en.Given;
