@@ -127,49 +127,39 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: 3. Setup Android SDK
-        uses: android-actions/setup-android@v3
+      - name: 3. Setup Node (buat Appium)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-      - name: 4. Download SDK + Buat AVD
-        run: |
-          export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
-          export ANDROID_AVD_HOME=$HOME/.android/avd
-          sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0" "system-images;android-34;google_apis;x86_64"
-          echo "y" | sdkmanager --licenses
-          echo "no" | avdmanager create avd -n test_avd -k "system-images;android-34;google_apis;x86_64" --device "pixel_5" --force
-          echo "=== CEK AVD KEBENTUK? ==="
-          $ANDROID_HOME/emulator/emulator -list-avds
+      - name: 4. Download ApiDemos APK dari Cloud
+        run: curl -L -o ApiDemos-debug.apk "https://github.com/appium/android-apidemos/releases/download/v6.0.15/ApiDemos-debug.apk"
 
       - name: 5. Install Appium + uiautomator2
         run: |
           npm install -g appium
           appium driver install uiautomator2
 
-      - name: 6. Download ApiDemos APK dari Cloud (GitHub Release)
-        run: |
-          curl -L -o ApiDemos-debug.apk "https://github.com/appium/android-apidemos/releases/download/v6.0.15/ApiDemos-debug.apk"
-          ls -la ApiDemos-debug.apk
+      - name: 6. Run Test di Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_5
+          force-avd-creation: true
+          emulator-options: -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect
+          script: |
+            adb install ApiDemos-debug.apk
+            appium &
+            sleep 12
+            mvn test -Dplatform=Android -Denv=apidemos -Dcucumber.filter.tags="@Mobile"
 
-      - name: 7. Start Emulator (background)
-        run: |
-          $ANDROID_HOME/emulator/emulator -avd test_avd -no-window -no-audio -no-boot-anim &
-          adb wait-for-device
-          adb shell getprop sys.boot_completed | grep -c 1
-
-      - name: 8. Install APK ke Emulator
-        run: adb install ApiDemos-debug.apk
-
-      - name: 9. Start Appium Server (background)
-        run: appium &
-
-      - name: 10. Jalankan Android Test
-        run: mvn test -Dplatform=Android -Dtest=MobileRunner
-
-      - name: 11. Generate Allure Report
+      - name: 7. Generate Allure Report
         if: always()
         run: mvn allure:report
 
-      - name: 12. Upload Artifact
+      - name: 8. Upload Artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
